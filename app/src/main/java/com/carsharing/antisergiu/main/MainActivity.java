@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        new GcmRegistrationAsyncTask().execute(this);
+   //     new GcmRegistrationAsyncTask().execute(this);
 
     }
 
