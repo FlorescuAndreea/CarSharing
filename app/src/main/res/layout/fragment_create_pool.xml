@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="poolup.penguins.chocolate.com.poolup.CreatePoolActivity$PlaceholderFragment">
+    tools:context="com.carsharing.antisergiu.main.CreatePoolActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -62,16 +62,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="15dp"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="@string/price"
-                        android:textSize="25dp"
-                        android:textColor="@android:color/holo_green_dark"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="15dp"
-                        />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -84,13 +75,24 @@
                         android:layout_marginTop="15dp"
                         />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weekly"
+                        android:textSize="25dp"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="15dp"
+                        />
 
-                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1.5"
-                    android:layout_height="wrap_content"
+                    android:layout_height="153dp"
                     android:orientation="vertical">
 
                     <EditText
@@ -107,16 +109,7 @@
                         android:id="@+id/create_tv_date"
                         android:layout_marginRight="10dp"/>
 
-                    <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:drawSelectorOnTop="true"
-                        android:layout_marginRight="10dp"
 
-                        android:layout_marginTop="15dp"
-                        android:textAlignment="center"
-                        android:entries="@array/costs">
-                    </Spinner>
 
                     <Spinner
                         android:layout_width="fill_parent"
@@ -126,10 +119,18 @@
                         android:entries="@array/seats"
                         android:textAlignment="center"
 
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="0dp">
                     </Spinner>
 
-                    </LinearLayout>
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/weeklyPool"
+                        android:checked="false"
+                        android:layout_marginTop="20dp"/>
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -254,7 +255,8 @@
             android:textColor="@android:color/white"
             android:background="@android:color/holo_green_dark"
             android:layout_below="@+id/create_ll_labels"/>
-            </RelativeLayout>
+
+    </RelativeLayout>
 
         </LinearLayout>
 

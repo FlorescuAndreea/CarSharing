@@ -10,7 +10,7 @@
     android:gravity="center"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
-    tools:context="poolup.penguins.chocolate.com.poolup.MainActivity$PlaceholderFragment">
+    tools:context="com.carsharing.antisergiu.main.MainActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"

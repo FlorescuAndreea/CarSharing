@@ -42,6 +42,11 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_my_profile) {
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
