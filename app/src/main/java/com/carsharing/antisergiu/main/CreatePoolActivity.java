@@ -44,6 +44,7 @@ public class CreatePoolActivity extends Activity {
     public void login(View view) {
         String text = new String("Car Pool saved!");
       //  Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
+
     }
 
     public static String convertToHour(int hourOfDay, int minute) {
