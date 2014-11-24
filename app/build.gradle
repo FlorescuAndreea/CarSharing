@@ -31,4 +31,7 @@ dependencies {
         exclude group: 'com.google.android.google-play-services'
     }
     compile 'com.google.apis:google-api-services-drive:v2-rev105-1.17.0-rc'
+    compile 'com.parse.bolts:bolts-android:1.1.2'
+    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile files('libs/Parse-1.7.1.jar')
 }
