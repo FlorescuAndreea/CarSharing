@@ -19,7 +19,7 @@
     <string name="name">Name</string>
     <string name="telephone">Telephone</string>
     <string name="login_title">Please confirm password!</string>
-
+    <string name="action_my_profile">My Profile</string>
 
     <string-array name="costs">
         <item>free</item>
@@ -58,7 +58,7 @@
         <item>1500 m</item>
     </string-array>
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_my_profile">MyProfile</string>
 
 </resources>
