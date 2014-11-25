@@ -1,6 +1,7 @@
 package com.carsharing.antisergiu.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ public class MyProfile extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_my_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -33,7 +34,11 @@ public class MyProfile extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (id == R.id.action_my_profile) {
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

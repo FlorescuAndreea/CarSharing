@@ -2,6 +2,7 @@ package com.carsharing.antisergiu.main;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -40,7 +41,7 @@ public class MatchingPoolsActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.matching_pools, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -52,6 +53,11 @@ public class MatchingPoolsActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_my_profile) {
+            Intent intent = new Intent(this, MyProfile.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
