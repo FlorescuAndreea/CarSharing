@@ -61,11 +61,9 @@
     </string-array>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="parse_client_key">NCuy5aRvDhuGCM5YphuV5EYtMNQLn4nh67vOGc8L</string>
     <string name="parse_app_ID">Xknvjn986noGgWkwzPS3xRARe4LtrTXRjHvCorSR</string>
-
     <string name="title_activity_my_profile">MyProfile</string>
-
+    <string name="title_activity_view_pool">ViewPool</string>
 
 </resources>
