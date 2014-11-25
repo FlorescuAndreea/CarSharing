@@ -16,17 +16,9 @@
             android:layout_width="fill_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:hint="User Name"
+            android:hint="Username"
             android:id="@+id/register_et_name"
 
-            />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Telephone"
-            android:gravity="center"
-            android:id="@+id/register_et_telephone"
             />
 
         <EditText
@@ -38,6 +30,14 @@
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Telephone"
+            android:gravity="center"
+            android:id="@+id/register_et_telephone"
+            />
 
         <Button
             android:width="250dp"
