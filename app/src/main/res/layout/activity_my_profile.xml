@@ -4,9 +4,71 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.carsharing.antisergiu.main.MyProfile">
+    tools:context="com.carsharing.antisergiu.main.MyProfile"
+    android:background="@drawable/road_background"
+    android:id="@+id/">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameLabel"
+        android:layout_marginTop="130dp"
+        android:text="Name:"
+        android:textSize="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/telephoneLabel"
+        android:layout_alignEnd="@+id/telephoneLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/telephoneLabel"
+        android:layout_marginTop="112dp"
+        android:text="Telephone:"
+        android:textSize="40dp"
+        android:layout_below="@+id/nameLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingLabel"
+        android:layout_marginTop="112dp"
+        android:text="Rating:"
+        android:textSize="40dp"
+        android:layout_below="@+id/telephoneLabel"
+        android:layout_alignLeft="@+id/nameLabel"
+        android:layout_alignStart="@+id/nameLabel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameValue"
+        android:text="Poenaru"
+        android:textSize="40dp"
+        android:layout_alignTop="@+id/nameLabel"
+        android:layout_alignLeft="@+id/telephoneValue"
+        android:layout_alignStart="@+id/telephoneValue" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/telephoneValue"
+        android:layout_above="@+id/ratingLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="0746123423"
+        android:textSize="40dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingValue"
+        android:text="12"
+        android:textSize="40dp"
+        android:layout_alignTop="@+id/ratingLabel"
+        android:layout_alignLeft="@+id/nameValue"
+        android:layout_alignStart="@+id/nameValue" />
 </RelativeLayout>
