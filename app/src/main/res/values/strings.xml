@@ -15,11 +15,13 @@
     <string name="title_activity_search_pool">Find Pool</string>
     <string name="pick_time">Pick Time</string>
     <string name="seat">Seats</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="telephone">Telephone</string>
     <string name="login_title">Please confirm password!</string>
     <string name="action_my_profile">My Profile</string>
+    <string name="logout">Logout</string>
 
     <string-array name="costs">
         <item>free</item>
