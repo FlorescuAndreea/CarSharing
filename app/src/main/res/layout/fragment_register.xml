@@ -44,7 +44,7 @@
             android:layout_width="fill_parent"
             android:background="@android:color/holo_green_dark"
             android:layout_height="wrap_content"
-            android:id="@+id/login_btn"
+            android:id="@+id/submit_btn"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:text="Register"

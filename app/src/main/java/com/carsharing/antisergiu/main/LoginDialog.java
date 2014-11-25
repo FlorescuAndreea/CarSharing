@@ -30,7 +30,7 @@ public class LoginDialog extends DialogFragment {
             view = inflater.inflate(R.layout.fragment_login, container);
 
             mEditText = (EditText) view.findViewById(R.id.login_et_password);
-            ((Button)view.findViewById(R.id.login_btn)).setOnClickListener(new View.OnClickListener() {
+            ((Button)view.findViewById(R.id.submit_btn)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(view.getContext(), "Created car pool!", Toast.LENGTH_LONG);
@@ -40,7 +40,7 @@ public class LoginDialog extends DialogFragment {
             getDialog().setTitle("Please confirm password!");
         } else {
             view = inflater.inflate(R.layout.fragment_register, container);
-            getDialog().setTitle("Please register to use the App!");((Button)view.findViewById(R.id.login_btn)).setOnClickListener(new View.OnClickListener() {
+            getDialog().setTitle("Please register to use the App!");((Button)view.findViewById(R.id.submit_btn)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     CreatePoolActivity.setmIsRegistered(true);
