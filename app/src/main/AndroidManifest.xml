@@ -91,6 +91,10 @@
             android:name="com.carsharing.antisergiu.main.ViewPool"
             android:label="@string/title_activity_view_pool" >
         </activity>
+        <activity
+            android:name="com.carsharing.antisergiu.main.MyPools"
+            android:label="@string/title_activity_my_pools" >
+        </activity>
     </application>
 
 </manifest>
