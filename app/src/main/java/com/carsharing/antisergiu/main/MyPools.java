@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import com.carsharing.antisergiu.controller.UserPoolAdapter;
+
 
 public class MyPools extends Activity {
 
@@ -23,6 +25,7 @@ public class MyPools extends Activity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+
     }
 
 
@@ -60,6 +63,8 @@ public class MyPools extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_pools, container, false);
+            UserPoolAdapter userPoolAdapter = new UserPoolAdapter();
+
             return rootView;
         }
     }
