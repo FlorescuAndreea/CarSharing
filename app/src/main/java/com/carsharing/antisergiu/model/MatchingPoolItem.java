@@ -6,6 +6,22 @@ package com.carsharing.antisergiu.model;
 public class MatchingPoolItem {
     private String driver;
     private Integer rating;
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public MatchingPoolItem(String driver, Integer rating, Integer id) {
+        this.driver = driver;
+        this.rating = rating;
+
+        this.id = id;
+    }
 
     public MatchingPoolItem() {
 
