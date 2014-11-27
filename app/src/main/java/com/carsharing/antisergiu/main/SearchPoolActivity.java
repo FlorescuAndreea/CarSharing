@@ -65,9 +65,12 @@ public class SearchPoolActivity extends Activity {
     }
 
     public void showLoginDialog(View view) {
+        // TODO add login logic here
 
-        LoginDialog loginDialog = new LoginDialog();
-        loginDialog.show(this.getFragmentManager(), "fragment_login");
+        // TODO after login show the MyPools View
+
+//        LoginDialog loginDialog = new LoginDialog();
+//        loginDialog.show(this.getFragmentManager(), "fragment_login");
     }
 
     public static class TimePickerFragment extends DialogFragment

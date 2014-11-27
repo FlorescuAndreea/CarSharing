@@ -35,63 +35,69 @@ import java.util.List;
  * Created by demouser on 8/1/14.
  */
 public class ShowRouteDialog extends DialogFragment {
-        private EditText mEditText;
-        GoogleMap map;
-        TextView tvDistance;
-        TextView tvDuration;
+    private EditText mEditText;
+    GoogleMap map;
+    TextView tvDistance;
+    TextView tvDuration;
 
-        public ShowRouteDialog() {
-            // Empty constructor required for DialogFragment
-        }
+    public ShowRouteDialog() {
+        // Empty constructor required for DialogFragment
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-           LatLng locA=new LatLng(getArguments().getDouble("SOURCE_LAT"),getArguments().getDouble("SOURCE_LONG"));
-           LatLng locB=new LatLng(getArguments().getDouble("DEST_LAT"),getArguments().getDouble("DEST_LONG"));
-           View view;
-
-
-
-            view = inflater.inflate(R.layout.fragment_show_route, container);
-
-            map = ((MapFragment) getFragmentManager()
-                    .findFragmentById(R.id.mapRoute)).getMap();
-
-            map.setMyLocationEnabled(true);
-
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 8));
-
-            map.addMarker(new MarkerOptions().position(locA).
-                    icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).draggable(true));
-
-            map.addMarker(new MarkerOptions().position(locB).
-                    icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).draggable(true));
+       LatLng locA=new LatLng(getArguments().getDouble("SOURCE_LAT"),getArguments().getDouble("SOURCE_LONG"));
+       LatLng locB=new LatLng(getArguments().getDouble("DEST_LAT"),getArguments().getDouble("DEST_LONG"));
+       View view;
 
 
 
-            tvDistance= (TextView) view.findViewById(R.id.show_route_distance);
-            tvDuration= (TextView) view.findViewById(R.id.show_route_duration);
+        view = inflater.inflate(R.layout.fragment_show_route, container);
 
-            Log.d("MAPS", "enter GetDirections");
-            String url = getDirectionsUrl(locA, locB);
-            Log.d("MAPS", "enter DownloadTrask");
+        map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.mapRoute)).getMap();
 
-            DownloadTask downloadTask = new DownloadTask();
-            Log.d("MAPS", "enter DownloadTraskExecute");
+        map.setMyLocationEnabled(true);
 
-            // Start downloading json data from Google Directions API
-            downloadTask.execute(url);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 8));
 
-            Log.d("MAPS", "beforeReturn");
+        map.addMarker(new MarkerOptions().position(locA).
+                icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).draggable(true));
 
-            //map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 15));
+        map.addMarker(new MarkerOptions().position(locB).
+                icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).draggable(true));
 
 
 
-            return view;
-        }
+        tvDistance= (TextView) view.findViewById(R.id.show_route_distance);
+        tvDuration= (TextView) view.findViewById(R.id.show_route_duration);
 
+        Log.d("MAPS", "enter GetDirections");
+        String url = getDirectionsUrl(locA, locB);
+        Log.d("MAPS", "enter DownloadTrask");
+
+        DownloadTask downloadTask = new DownloadTask();
+        Log.d("MAPS", "enter DownloadTraskExecute");
+
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
+
+        Log.d("MAPS", "beforeReturn");
+
+        //map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 15));
+
+
+
+        return view;
+    }
+
+    public void joinPool(View view) {
+        // TODO add login logic here
+
+        // TODO after login show the MyPools View
+
+    }
 
     private String getDirectionsUrl(LatLng origin, LatLng dest)
     {
