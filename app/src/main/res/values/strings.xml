@@ -79,5 +79,6 @@
     <string name="title_activity_my_pool">MyPool</string>
     <string name="title_activity_view_pool">ViewPool</string>
     <string name="title_activity_my_pools">MyPools</string>
+    <string name="action_my_pools">My Pools</string>
 
 </resources>
