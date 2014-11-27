@@ -131,8 +131,8 @@ public class CreatePoolActivity extends Activity {
 
     public void showLoginDialog(View view) {
 
-        LoginDialog loginDialog = new LoginDialog();
-        loginDialog.show(this.getFragmentManager(), "fragment_login");
+//        LoginDialog loginDialog = new LoginDialog();
+//        loginDialog.show(this.getFragmentManager(), "fragment_login");
 
     }
 
