@@ -46,12 +46,13 @@ public class UserPoolAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout layout;
         UserPoolsItem currentPool = listElements.get(position);
+
         if (convertView == null) {
             layout = new LinearLayout(parent.getContext());
             layout.setOrientation(LinearLayout.VERTICAL);
 
             TextView timeView = new TextView(parent.getContext());
-            timeView.setText("");
+            timeView.setText("Day: " + currentPool.getDay() + " Hour: " + currentPool.getHour());
             timeView.setTextSize(18);
             timeView.setTypeface(null, Typeface.BOLD);
             timeView.setTextColor(Color.DKGRAY);
@@ -77,6 +78,6 @@ public class UserPoolAdapter extends BaseAdapter {
         else {
             layout = (LinearLayout) convertView;
         }
-        return null;
+        return layout;
     }
 }

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ListView;
 
 import com.carsharing.antisergiu.controller.UserPoolAdapter;
 
@@ -64,6 +65,8 @@ public class MyPools extends Activity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_pools, container, false);
             UserPoolAdapter userPoolAdapter = new UserPoolAdapter();
+            ListView listView = (ListView) rootView.findViewById(R.id.my_pools_listview);
+            listView.setAdapter(userPoolAdapter);
 
             return rootView;
         }
