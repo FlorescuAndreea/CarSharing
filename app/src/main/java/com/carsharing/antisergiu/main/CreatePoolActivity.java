@@ -70,6 +70,8 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             LatLng origin = mapController.getOrigin();
             LatLng destination = mapController.getDestination();
 
+            String driverUsername = prefs.getString("username", "");
+
             boolean weekly;
             if (weeklySwitch.isChecked()) {
                 weekly = true;
@@ -80,9 +82,14 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
 
             Log.v("CARSHARING", "Date: " + date +  " Hour: " + hour);
             Log.v("CARSHARING", "Seats: " + seats +  " Weekly: " + weekly);
+            Log.v("CARSHARING", "Username: " + driverUsername);
+            // after the pool is saved, redirect to mypools view
+            Intent intent = new Intent(this, MyPools.class);
+            startActivity(intent);
         } else {
             Log.v("CARSHARING", "Nu e logat");
         }
+
     }
 
     public static String convertToHour(int hourOfDay, int minute) {
