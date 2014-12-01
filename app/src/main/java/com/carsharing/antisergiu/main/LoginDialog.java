@@ -1,7 +1,10 @@
 package com.carsharing.antisergiu.main;
 
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.parse.FunctionCallback;
+import com.parse.Parse;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+
+import java.util.HashMap;
 
 // LOGIN LOGIC
 public class LoginDialog extends DialogFragment {
@@ -25,6 +35,9 @@ public class LoginDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view;
+
+
+
         if (CreatePoolActivity.getRegistrationStatus() == true) {
 
             view = inflater.inflate(R.layout.fragment_login, container);
@@ -66,14 +79,38 @@ public class LoginDialog extends DialogFragment {
                     CreatePoolActivity.setmIsRegistered(true);
 
                     // TODO check if data is correct, save to database and then dismiss
+                    registerUser(username, password, telephone);
 
-                    mdialog.dismiss();
+                    //mdialog.dismiss();
                 }
             });
 
         }
 
         return view;
+    }
+
+    // register new user to server
+    public void registerUser(String usn, String pass, String phone) {
+        HashMap<String, Object> params = new HashMap <String, Object> ();
+        params.put("username", usn);
+        params.put("password", pass);
+        params.put("telephone", phone);
+
+        ParseCloud.callFunctionInBackground("registerUser", params, new FunctionCallback<String>() {
+            public void done(String res, ParseException e) {
+                if (e == null) {
+                    // 'res' are valoarea: User registered successfully!
+                    mdialog.dismiss();
+                } else {
+                    // 'res' are valoarea: User already taken!
+                    // TODO: trb sa inrosesc ceva
+                    Dialog dialogView = mdialog.getDialog();
+                    EditText usernameEt = (EditText) dialogView.findViewById(R.id.register_et_name);
+                    usernameEt.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+        });
     }
 
 }
