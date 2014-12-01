@@ -3,6 +3,7 @@ package com.carsharing.antisergiu.main;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.carsharing.antisergiu.controller.UserPoolAdapter;
@@ -67,6 +69,15 @@ public class MyPools extends Activity {
             UserPoolAdapter userPoolAdapter = new UserPoolAdapter();
             ListView listView = (ListView) rootView.findViewById(R.id.my_pools_listview);
             listView.setAdapter(userPoolAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    System.out.println(parent.getClass());
+                    Intent intent = new Intent(parent.getContext(), PoolDetails.class);
+                    startActivity(intent);
+                }
+            });
 
             return rootView;
         }
