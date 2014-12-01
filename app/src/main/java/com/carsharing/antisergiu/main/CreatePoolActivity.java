@@ -38,6 +38,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
     public static String sharedPrefsName = "AppPrefs";
     public static SharedPreferences prefs;
     protected static boolean mIsRegistered = false;
+    static MapController mapController;
 
     public CreatePoolActivity() {
 
@@ -65,6 +66,10 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             String hour = ((EditText)findViewById(R.id.create_tv_time)).getText().toString();
             String seats = ((Spinner)findViewById(R.id.seats)).getSelectedItem().toString();
             Switch weeklySwitch = (Switch)findViewById(R.id.weeklyPool);
+
+            LatLng origin = mapController.getOrigin();
+            LatLng destination = mapController.getDestination();
+
             boolean weekly;
             if (weeklySwitch.isChecked()) {
                 weekly = true;
@@ -229,7 +234,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
      */
     public static class PlaceholderFragment extends Fragment {
 
-        MapController mapController;
+
 
         public PlaceholderFragment() {
         }
@@ -247,10 +252,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             LatLng loc=new LatLng(51.4926, -0.144);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
 
-
-
             mapController = new MapController(map);
-
 
             // set set current time
             Calendar c = Calendar.getInstance();
