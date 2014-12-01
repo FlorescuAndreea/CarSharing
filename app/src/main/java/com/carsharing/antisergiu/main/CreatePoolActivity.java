@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -27,7 +31,9 @@ import com.google.android.gms.maps.model.*;
 
 import java.util.Calendar;
 
-public class CreatePoolActivity extends Activity {
+import static android.content.DialogInterface.OnDismissListener;
+
+public class CreatePoolActivity extends Activity implements OnDismissListener{
 
     public static String sharedPrefsName = "AppPrefs";
     public static SharedPreferences prefs;
@@ -53,18 +59,25 @@ public class CreatePoolActivity extends Activity {
         editor.commit();
     }
 
+    public void savePool() {
+        if (MainActivity.loginSuccessful) {
+            String date = ((EditText)findViewById(R.id.create_tv_date)).getText().toString();
+            String hour = ((EditText)findViewById(R.id.create_tv_time)).getText().toString();
+            String seats = ((Spinner)findViewById(R.id.seats)).getSelectedItem().toString();
+            Switch weeklySwitch = (Switch)findViewById(R.id.weeklyPool);
+            boolean weekly;
+            if (weeklySwitch.isChecked()) {
+                weekly = true;
+            } else {
+                weekly = false;
+            }
 
 
-
-    public void register(View view) {
-        String text = new String("Car Pool saved!");
-
-    }
-
-    public void login(View view) {
-        String text = new String("Car Pool saved!");
-      //  Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
-
+            Log.v("CARSHARING", "Date: " + date +  " Hour: " + hour);
+            Log.v("CARSHARING", "Seats: " + seats +  " Weekly: " + weekly);
+        } else {
+            Log.v("CARSHARING", "Nu e logat");
+        }
     }
 
     public static String convertToHour(int hourOfDay, int minute) {
@@ -101,6 +114,11 @@ public class CreatePoolActivity extends Activity {
 
         return monthString + "/" + dayString + "/" + year;
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+        savePool();
     }
 
 

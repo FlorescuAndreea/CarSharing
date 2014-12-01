@@ -14,6 +14,8 @@ import com.parse.Parse;
 
 public class MainActivity extends Activity {
 
+    public static boolean loginSuccessful = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

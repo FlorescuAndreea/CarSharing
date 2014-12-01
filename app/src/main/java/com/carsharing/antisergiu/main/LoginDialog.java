@@ -1,7 +1,9 @@
 package com.carsharing.antisergiu.main;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -31,12 +33,26 @@ public class LoginDialog extends DialogFragment {
         prefs = CreatePoolActivity.prefs;
     }
 
+    public void registerOnDismissDialog(DialogInterface.OnDismissListener listener) {
+        this.getDialog().setOnDismissListener(listener);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        Activity activity = mdialog.getActivity();
+        Log.v("CARSHARING", "Din activity: " + activity.getClass().toString());
+        if (activity instanceof CreatePoolActivity) {
+            ((CreatePoolActivity)activity).savePool();
+        } else {
+
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view;
-
-
 
         if (CreatePoolActivity.getRegistrationStatus() == true) {
 
@@ -51,6 +67,8 @@ public class LoginDialog extends DialogFragment {
                     Log.v("CARSHARING", "pass din prefs: " + prefs.contains("password") + " " + prefs.getString("password", " "));
                     if (prefs.getString("password", "").equals(pass)) {
                         Toast.makeText(view.getContext(), "Created car pool!", Toast.LENGTH_LONG);
+                        CreatePoolActivity.setmIsRegistered(true);
+                        MainActivity.loginSuccessful = true;
                         mdialog.dismiss();
                     } else {
                         Toast.makeText(view.getContext(), "Error, password incorrect!", Toast.LENGTH_LONG);
@@ -101,6 +119,7 @@ public class LoginDialog extends DialogFragment {
             public void done(String res, ParseException e) {
                 if (e == null) {
                     // 'res' are valoarea: User registered successfully!
+                    MainActivity.loginSuccessful = true;
                     mdialog.dismiss();
                 } else {
                     // 'res' are valoarea: User already taken!
