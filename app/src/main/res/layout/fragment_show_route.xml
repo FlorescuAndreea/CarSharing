@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:background="@android:color/holo_green_dark"
         android:layout_height="wrap_content"
-        android:onClick="joinPool()"
+        android:onClick="joinPool"
         android:id="@+id/join_route_btn"
         android:textColor="@android:color/white"
         android:text="Join route"

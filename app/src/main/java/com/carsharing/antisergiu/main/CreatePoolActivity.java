@@ -6,8 +6,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +29,18 @@ import java.util.Calendar;
 
 public class CreatePoolActivity extends Activity {
 
+    public static String sharedPrefsName = "AppPrefs";
+    public static SharedPreferences prefs;
     protected static boolean mIsRegistered = false;
+
+    public CreatePoolActivity() {
+
+
+    }
+
+    public static Context getContext() {
+        return CreatePoolActivity.getContext();
+    }
 
     public static boolean getRegistrationStatus() {
         return mIsRegistered;
@@ -34,12 +48,17 @@ public class CreatePoolActivity extends Activity {
 
     public static void setmIsRegistered(boolean value) {
         mIsRegistered = value;
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("registered", true);
+        editor.commit();
     }
+
+
+
 
     public void register(View view) {
         String text = new String("Car Pool saved!");
-       // Toast.makeText(, text, Toast.LENGTH_LONG);
-        CreatePoolActivity.setmIsRegistered(true);
+
     }
 
     public void login(View view) {
@@ -130,16 +149,17 @@ public class CreatePoolActivity extends Activity {
     }
 
     public void showLoginDialog(View view) {
-
-//        LoginDialog loginDialog = new LoginDialog();
-//        loginDialog.show(this.getFragmentManager(), "fragment_login");
-
+        LoginDialog loginDialog = new LoginDialog();
+        loginDialog.show(this.getFragmentManager(), "fragment_login");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_pool);
+        prefs = getSharedPreferences(sharedPrefsName, MODE_MULTI_PROCESS);
+        mIsRegistered = prefs.getBoolean("registered", false);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
