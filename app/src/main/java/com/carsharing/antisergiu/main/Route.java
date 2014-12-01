@@ -14,7 +14,7 @@ public class Route {
     private int mId;
     private String mDriver;
     private int mAvailableSeats;
-    private int mPrice;
+    private int mRating;
     private int mDepatureYear;
     private int mDepatureMonth;
     private int mDepatureDate;
@@ -24,13 +24,13 @@ public class Route {
     private LatLng mEndPoint;
     private ArrayList<String> mPassengers;
 
-    public Route(String driver, int availableSeats, int price, int departureYear, int departureMonth,
+    public Route(String driver, int availableSeats, int rating, int departureYear, int departureMonth,
                  int departureDate, int departureHour, int departureMinute, LatLng startPoint, LatLng endPoint){
         mId = mIdCounter;
         mIdCounter++;
         mDriver = driver;
         mAvailableSeats = availableSeats;
-        mPrice = price;
+        mRating = rating;
         mDepatureYear = departureYear;
         mDepatureMonth = departureMonth;
         mDepatureDate = departureDate;
@@ -45,14 +45,12 @@ public class Route {
         mPassengers.add(passenger);
         // re-calculate the price
         int nbrPassengers = mPassengers.size();
-        mPrice = (mPrice/(nbrPassengers-1))*nbrPassengers;
     }
 
     public void removePassenger(String passenger){
         mPassengers.remove(passenger);
         // re-calculate the price
         int nbrPassengers = mPassengers.size();
-        mPrice = (mPrice/(nbrPassengers+1))*nbrPassengers;
     }
 
     public int getId() {
@@ -67,8 +65,8 @@ public class Route {
         return mAvailableSeats;
     }
 
-    public int getPrice() {
-        return mPrice;
+    public int getRating() {
+        return mRating;
     }
 
     public int getDepatureYear() {

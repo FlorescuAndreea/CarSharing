@@ -120,9 +120,10 @@ public class MatchingPoolsActivity extends Activity {
                 routes = new ArrayList<Route>();
                 Time t = new Time();
                 t.setToNow();
-                routes.add(new Route("Brit",3,20, 1, 3, 3, 12, 23, new LatLng(1,1), new LatLng(2,2)));
+                    routes.add(new Route("Farcasanu",3,10, 1, 3, 3, 12, 23, new LatLng(1,1), new LatLng(2,2)));
                 t.set(0,1,2,3,4,5);
-                routes.add(new Route("Hanna",2,20, 3, 2, 1, 23, 12, new LatLng(1,1), new LatLng(2,2)));
+                routes.add(new Route("Antoche",2,9, 3, 2, 1, 23, 12, new LatLng(1,1), new LatLng(2,2)));
+                routes.add(new Route("Grecule",2,5, 3, 2, 1, 23, 12, new LatLng(1,1), new LatLng(2,2)));
             }
 
             public int getCount() {
@@ -162,7 +163,7 @@ public class MatchingPoolsActivity extends Activity {
                     layout.addView(driverView);
 
                     TextView priceView = new TextView(parent.getContext());
-                    priceView.setText("Price: " + currRoute.getPrice() + "$");
+                    priceView.setText("Rating: " + currRoute.getRating() + "$");
                     priceView.setTextSize(18);
                     priceView.setTextColor(Color.DKGRAY);
                     layout.addView(priceView);
