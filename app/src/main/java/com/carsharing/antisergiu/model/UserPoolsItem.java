@@ -11,14 +11,24 @@ public class UserPoolsItem {
     private Integer people;
     private Integer id;
     private String driver;
+    private String objectID;
+
+
     // STANDARD: if the user is the driver, the driver parameter will be empty
     // else it contains the drivers name
-    public UserPoolsItem(String driver, Date day, String hour, Integer people, Integer id) {
+    // Integer id will be the initial position in the ArrayList when UserPoolsItem is created
+    public UserPoolsItem(String driver, Date day, String hour, Integer people, Integer id, String objectID) {
         this.day = day;
         this.hour = hour;
         this.people = people;
         this.id = id;
         this.driver = driver;
+        this.objectID = objectID;
+
+    }
+
+    public String getObjectID() {
+        return objectID;
     }
 
     public Integer getId() {
