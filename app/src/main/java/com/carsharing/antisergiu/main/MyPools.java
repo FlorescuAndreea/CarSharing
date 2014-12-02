@@ -56,7 +56,7 @@ public class MyPools extends Activity {
     }
 
     private void createDriverDetailsActivity(String objectID) {
-        Intent intent = new Intent(getBaseContext(), PoolDetails.class);
+        Intent intent = new Intent(getBaseContext(), PoolDetailsDriver.class);
         intent.putExtra("type", "driver");
         intent.putExtra("objectID", objectID);
         startActivity(intent);
