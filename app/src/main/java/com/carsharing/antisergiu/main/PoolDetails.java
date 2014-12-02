@@ -12,11 +12,17 @@ import android.view.ViewGroup;
 
 
 public class PoolDetails extends Activity {
+    protected static String type;
+    private String poolID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pool_details);
+        Intent intent = getIntent();
+        type = intent.getStringExtra("type");
+        poolID = intent.getStringExtra("objectID");
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -64,7 +70,13 @@ public class PoolDetails extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_pool_details, container, false);
+            View rootView;
+            if (type.equals("driver")) {
+                rootView = inflater.inflate(R.layout.fragment_pool_details_driver, container, false);
+            } else {
+                rootView = inflater.inflate(R.layout.fragment_pool_details, container, false);
+            }
+
             return rootView;
         }
     }
