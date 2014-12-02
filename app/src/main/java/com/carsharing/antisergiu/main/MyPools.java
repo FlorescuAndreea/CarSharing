@@ -55,6 +55,20 @@ public class MyPools extends Activity {
 
     }
 
+    private void createDriverDetailsActivity(String objectID) {
+        Intent intent = new Intent(getBaseContext(), PoolDetails.class);
+        intent.putExtra("type", "driver");
+        intent.putExtra("objectID", objectID);
+        startActivity(intent);
+    }
+
+    private void createPassengerDetailsActivity(String objectID) {
+        Intent intent = new Intent(getBaseContext(), PoolDetails.class);
+        intent.putExtra("type", "driver");
+        intent.putExtra("objectID", objectID);
+        startActivity(intent);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -70,9 +84,12 @@ public class MyPools extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(parent.getClass());
-                Intent intent = new Intent(parent.getContext(), PoolDetails.class);
-                startActivity(intent);
+                UserPoolsItem clickedItem = (UserPoolsItem)userPoolAdapter.getItem(position);
+                if (clickedItem.getDriver().equals("")) {
+                    createDriverDetailsActivity(clickedItem.getObjectID());
+                } else {
+                    createPassengerDetailsActivity(clickedItem.getObjectID());
+                }
             }
         });
 
