@@ -116,7 +116,7 @@ public class ShowRouteActivity extends Activity  implements DialogInterface.OnDi
             map = ((MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
 
-            map.setMyLocationEnabled(true);
+            LatLng loc=new LatLng(44.435791, 26.047450);
 
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 8));
 

@@ -303,7 +303,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             map = ((MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
 
-            LatLng loc=new LatLng(51.4926, -0.144);
+            LatLng loc=new LatLng(44.435791, 26.047450);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(loc,15));
 
             mapController = new MapController(map);
