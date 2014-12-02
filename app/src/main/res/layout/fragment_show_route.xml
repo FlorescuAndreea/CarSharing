@@ -3,18 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp">
-
+    android:layout_margin="20dp"
+    >
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/mapRoute"
+        android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:height="350dp"
-    />
 
-
+        android:name="com.google.android.gms.maps.MapFragment"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +48,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/show_route_duration"/>
 
-
-
     </LinearLayout>
 
     <Button
@@ -60,9 +55,9 @@
         android:layout_width="match_parent"
         android:background="@android:color/holo_green_dark"
         android:layout_height="wrap_content"
-        android:onClick="joinPool"
         android:id="@+id/join_route_btn"
         android:textColor="@android:color/white"
+        android:onClick="showLoginDialog"
         android:text="Join route"
         android:width="250dp"
         />

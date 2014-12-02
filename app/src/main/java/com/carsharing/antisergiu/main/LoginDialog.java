@@ -30,7 +30,13 @@ public class LoginDialog extends DialogFragment {
     private LoginDialog mdialog = this;
     SharedPreferences prefs;
     public LoginDialog() {
-        prefs = CreatePoolActivity.prefs;
+        Activity activity = mdialog.getActivity();
+        if (activity instanceof CreatePoolActivity) {
+            prefs = CreatePoolActivity.prefs;
+        } else {
+            prefs = ShowRouteActivity.prefs;
+        }
+
     }
 
     public void registerOnDismissDialog(DialogInterface.OnDismissListener listener) {
@@ -45,7 +51,25 @@ public class LoginDialog extends DialogFragment {
         if (activity instanceof CreatePoolActivity) {
             ((CreatePoolActivity)activity).savePool();
         } else {
+            ((ShowRouteActivity)activity).joinPool();
+        }
+    }
 
+    private void setUserRegistred() {
+        Activity activity = mdialog.getActivity();
+        if (activity instanceof CreatePoolActivity) {
+            CreatePoolActivity.setmIsRegistered(true);
+        } else {
+            ShowRouteActivity.setmIsRegistered(true);
+        }
+    }
+
+    private boolean getUserRegistrationStatus() {
+        Activity activity = mdialog.getActivity();
+        if (activity instanceof CreatePoolActivity) {
+            return CreatePoolActivity.getRegistrationStatus();
+        } else {
+            return ShowRouteActivity.getRegistrationStatus();
         }
     }
 
@@ -54,20 +78,18 @@ public class LoginDialog extends DialogFragment {
                              Bundle savedInstanceState) {
         final View view;
 
-        if (CreatePoolActivity.getRegistrationStatus() == true) {
+        if (getUserRegistrationStatus() == true) {
 
             view = inflater.inflate(R.layout.fragment_login, container);
             mEditText = (EditText) view.findViewById(R.id.login_et_password);
-            Log.v("MAAAAAAAAAAAAAAAATA", view.toString());
+
             ((Button)view.findViewById(R.id.login_btn)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String pass = mEditText.getText().toString();
-                    Log.v("CARSHARING", "pass din edittext: " + pass);
-                    Log.v("CARSHARING", "pass din prefs: " + prefs.contains("password") + " " + prefs.getString("password", " "));
                     if (prefs.getString("password", "").equals(pass)) {
                         Toast.makeText(view.getContext(), "Created car pool!", Toast.LENGTH_LONG);
-                        CreatePoolActivity.setmIsRegistered(true);
+                        setUserRegistred();
                         MainActivity.loginSuccessful = true;
                         mdialog.dismiss();
                     } else {
@@ -94,8 +116,7 @@ public class LoginDialog extends DialogFragment {
                     editor.putString("username", username);
                     editor.putString("password", password);
                     editor.commit();
-                    CreatePoolActivity.setmIsRegistered(true);
-
+                    setUserRegistred();
                     // TODO check if data is correct, save to database and then dismiss
                     registerUser(username, password, telephone);
 
