@@ -1,6 +1,9 @@
 package com.carsharing.antisergiu.main;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,27 +37,32 @@ import java.util.List;
 /**
  * Created by demouser on 8/1/14.
  */
-public class ShowRouteDialog extends DialogFragment {
+public class ShowRouteActivity extends Activity {
     private EditText mEditText;
     GoogleMap map;
     TextView tvDistance;
     TextView tvDuration;
 
-    public ShowRouteDialog() {
+    public ShowRouteActivity() {
         // Empty constructor required for DialogFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
-       LatLng locA=new LatLng(getArguments().getDouble("SOURCE_LAT"),getArguments().getDouble("SOURCE_LONG"));
-       LatLng locB=new LatLng(getArguments().getDouble("DEST_LAT"),getArguments().getDouble("DEST_LONG"));
-       View view;
+        // TODO get info frorm db or previous intent
+        Intent intent = getIntent();
 
+        LatLng locA = new LatLng(intent.getDoubleExtra("SOURCE_LAT", 0),intent.getDoubleExtra("SOURCE_LONG", 0));
+        LatLng locB = new LatLng(intent.getDoubleExtra("DEST_LAT", 0), intent.getDoubleExtra("DEST_LONG", 0));
 
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, new PlaceholderFragment())
+                    .commit();
+        }
 
-        view = inflater.inflate(R.layout.fragment_show_route, container);
-
+        GoogleMap map;
         map = ((MapFragment) getFragmentManager()
                 .findFragmentById(R.id.mapRoute)).getMap();
 
@@ -63,15 +71,14 @@ public class ShowRouteDialog extends DialogFragment {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 8));
 
         map.addMarker(new MarkerOptions().position(locA).
-                icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).draggable(true));
+                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).draggable(true));
 
         map.addMarker(new MarkerOptions().position(locB).
-                icon(BitmapDescriptorFactory .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).draggable(true));
+                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).draggable(true));
 
 
-
-        tvDistance= (TextView) view.findViewById(R.id.show_route_distance);
-        tvDuration= (TextView) view.findViewById(R.id.show_route_duration);
+        tvDistance = (TextView) findViewById(R.id.show_route_distance);
+        tvDuration = (TextView) findViewById(R.id.show_route_duration);
 
         Log.d("MAPS", "enter GetDirections");
         String url = getDirectionsUrl(locA, locB);
@@ -86,10 +93,6 @@ public class ShowRouteDialog extends DialogFragment {
         Log.d("MAPS", "beforeReturn");
 
         //map.animateCamera(CameraUpdateFactory.newLatLngZoom(locA, 15));
-
-
-
-        return view;
     }
 
     public void joinPool(View view) {
@@ -99,8 +102,7 @@ public class ShowRouteDialog extends DialogFragment {
 
     }
 
-    private String getDirectionsUrl(LatLng origin, LatLng dest)
-    {
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
         // Origin of route
         String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
@@ -124,15 +126,15 @@ public class ShowRouteDialog extends DialogFragment {
         return url;
     }
 
-    /** A method to download json data from url */
+    /**
+     * A method to download json data from url
+     */
 
-    private String downloadUrl(String strUrl) throws IOException
-    {
+    private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try
-        {
+        try {
             URL url = new URL(strUrl);
 
             // Creating an http connection to communicate with url
@@ -149,8 +151,7 @@ public class ShowRouteDialog extends DialogFragment {
             StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while ((line = br.readLine()) != null)
-            {
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -158,11 +159,9 @@ public class ShowRouteDialog extends DialogFragment {
 
             br.close();
 
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("Exception while downloading url", e.toString());
-        } finally
-        {
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
@@ -170,22 +169,18 @@ public class ShowRouteDialog extends DialogFragment {
     }
 
     // Fetches data from url passed
-    private class DownloadTask extends AsyncTask<String, Void, String>
-    {
+    private class DownloadTask extends AsyncTask<String, Void, String> {
         // Downloading data in non-ui thread
         @Override
-        protected String doInBackground(String... url)
-        {
+        protected String doInBackground(String... url) {
 
             // For storing data from web service
             String data = "";
 
-            try
-            {
+            try {
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 Log.d("Background Task", e.toString());
             }
             return data;
@@ -194,8 +189,7 @@ public class ShowRouteDialog extends DialogFragment {
         // Executes in UI thread, after the execution of
         // doInBackground()
         @Override
-        protected void onPostExecute(String result)
-        {
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
             ParserTask parserTask = new ParserTask();
@@ -206,26 +200,24 @@ public class ShowRouteDialog extends DialogFragment {
         }
     }
 
-    /** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>>
-    {
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
         // Parsing the data in non-ui thread
         @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData)
-        {
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
-            try
-            {
+            try {
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
                 // Starts parsing data
                 routes = parser.parse(jObject);
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return routes;
@@ -233,8 +225,7 @@ public class ShowRouteDialog extends DialogFragment {
 
         // Executes in UI thread, after the parsing process
         @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result)
-        {
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points = null;
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
@@ -242,10 +233,8 @@ public class ShowRouteDialog extends DialogFragment {
             String duration = "";
 
 
-
             // Traversing through all the routes
-            for (int i = 0; i < result.size(); i++)
-            {
+            for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
 
@@ -253,16 +242,13 @@ public class ShowRouteDialog extends DialogFragment {
                 List<HashMap<String, String>> path = result.get(i);
 
                 // Fetching all the points in i-th route
-                for (int j = 0; j < path.size(); j++)
-                {
+                for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
 
-                    if (j == 0)
-                    { // Get distance from the list
+                    if (j == 0) { // Get distance from the list
                         distance = point.get("distance");
                         continue;
-                    } else if (j == 1)
-                    { // Get duration from the list
+                    } else if (j == 1) { // Get duration from the list
                         duration = point.get("duration");
                         continue;
                     }
@@ -278,15 +264,32 @@ public class ShowRouteDialog extends DialogFragment {
                 lineOptions.color(Color.RED);
             }
 
-          tvDistance.setText( distance);
-          tvDuration.setText( duration );
+            tvDistance.setText(distance);
+            tvDuration.setText(duration);
 
             // Drawing polyline in the Google Map for the i-th route
 
             Log.d("maps", "pintando la linea");
-           map.addPolyline(lineOptions);
+            map.addPolyline(lineOptions);
         }
     }
-   }
+
+    /**
+     * A placeholder fragment containing a simple view.
+     */
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_show_route, container, false);
+            return rootView;
+        }
+
+    }
+}
 
 

@@ -83,35 +83,26 @@ public class MatchingPoolsActivity extends Activity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    showRoute(view);
+                showRoute(view);
 
                 }
             });
-
-
-
-
-
-
-
-
 
           return rootView;
         }
 
 
         public void showRoute(View view) {
+            Intent createShowRootIntent = new Intent(this.getActivity(), ShowRouteActivity.class);
 
-                ShowRouteDialog showRouteDialog = new ShowRouteDialog();
-            Bundle args = new Bundle();
+            createShowRootIntent.putExtra("SOURCE_LAT", 50);
+            createShowRootIntent.putExtra("SOURCE_LONG", 51);
+            createShowRootIntent.putExtra("DEST_LAT", 50.05);
+            createShowRootIntent.putExtra("DEST_LONG", 51.07);
 
-            args.putDouble("SOURCE_LAT", 50);
-            args.putDouble("SOURCE_LONG", 51);
-            args.putDouble("DEST_LAT", 50.05);
-            args.putDouble("DEST_LONG", 51.07);
-            showRouteDialog.setArguments(args);
-                showRouteDialog.show(this.getFragmentManager(), "fragment_show_route");
-            }
+            startActivity(createShowRootIntent);
+        }
+
         private class RoutesAdapter extends BaseAdapter {
 
             private ArrayList<Route> routes;

@@ -252,7 +252,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_create_pool, container, false);
             // Get a handle to the Map Fragment
-                        GoogleMap map;
+            GoogleMap map;
             map = ((MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
 
