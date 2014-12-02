@@ -28,8 +28,17 @@ import android.widget.TimePicker;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static android.content.DialogInterface.OnDismissListener;
 
@@ -71,6 +80,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             LatLng destination = mapController.getDestination();
 
             String driverUsername = prefs.getString("username", "");
+            long time = 0;
 
             boolean weekly;
             if (weeklySwitch.isChecked()) {
@@ -79,6 +89,22 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 weekly = false;
             }
 
+            date += (" " + hour);
+            Log.v("DATE", date);
+            java.util.Date d = null;
+
+            try {
+                SimpleDateFormat isoFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+                isoFormat.setTimeZone(TimeZone.getTimeZone("Europe/Bucharest"));
+                d = isoFormat.parse(date);
+                time = d.getTime();
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+            Log.v("TIME", String.valueOf(time));
+            addPool(driverUsername, new ParseGeoPoint(origin.latitude, origin.longitude),
+                    new ParseGeoPoint(destination.latitude, destination.longitude),
+                    new Date(time), Integer.parseInt(seats), weekly);
 
             Log.v("CARSHARING", "Date: " + date +  " Hour: " + hour);
             Log.v("CARSHARING", "Seats: " + seats +  " Weekly: " + weekly);
@@ -90,6 +116,27 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             Log.v("CARSHARING", "Nu e logat");
         }
 
+    }
+
+    // add pool to server
+    public void addPool(String driverUsn, ParseGeoPoint source, ParseGeoPoint dest, Date date, Integer seats, Boolean weekly) {
+        HashMap<String, Object> params = new HashMap <String, Object> ();
+        params.put("driver", driverUsn);
+        params.put("source", source);
+        params.put("destination", dest);
+        params.put("date", date);
+        params.put("seats", seats);
+        params.put("weekly", weekly);
+
+        ParseCloud.callFunctionInBackground("addPool", params, new FunctionCallback<String>() {
+            public void done(String res, ParseException e) {
+                if (e == null) {
+                    // 'res' are valoarea: Pool created successfully!
+                } else {
+                    // 'res' are valoarea: Pool already exists!
+                }
+            }
+        });
     }
 
     public static String convertToHour(int hourOfDay, int minute) {
@@ -106,7 +153,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
         else
             minuteSting = "" +minute;
 
-        return hourString + " : " + minuteSting;
+        return hourString + ":" + minuteSting;
     }
 
     public static String convertToDate(int year, int month, int day) {
