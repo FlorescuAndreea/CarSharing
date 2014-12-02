@@ -5,8 +5,20 @@ package com.carsharing.antisergiu.model;
  */
 public class MatchingPoolItem {
     private String driver;
-    private Integer rating;
+    private String rating;
     private Integer id;
+    private String objectID;
+
+    public MatchingPoolItem() {
+    }
+
+    public String getObjectID() {
+        return objectID;
+    }
+
+    public void setObjectID(String objectID) {
+        this.objectID = objectID;
+    }
 
     public Integer getId() {
         return id;
@@ -16,22 +28,11 @@ public class MatchingPoolItem {
         this.id = id;
     }
 
-    public MatchingPoolItem(String driver, Integer rating, Integer id) {
-        this.driver = driver;
-        this.rating = rating;
-
-        this.id = id;
-    }
-
-    public MatchingPoolItem() {
-
-    }
-
-    public Integer getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

@@ -131,10 +131,10 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/search_pool_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Search"
-            android:onClick="searchPool"
             android:layout_marginTop="25dp"
             android:textColor="@android:color/white"
             android:background="@android:color/holo_green_dark"
