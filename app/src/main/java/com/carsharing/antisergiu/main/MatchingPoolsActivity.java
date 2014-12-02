@@ -65,6 +65,26 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
     public void joinPool() {
         // TODO add login logic
         // TODO add user to pool in db
+
+        joinPool(matchingItem.getObjectID(), prefs.getString("username", ""));
+    }
+
+    // join pool
+    public void joinPool(String id, String passenger) {
+        HashMap <String, Object> params = new HashMap <String, Object> ();
+        params.put("id", id);
+        params.put("passenger", passenger);
+
+        ParseCloud.callFunctionInBackground("joinPool", params, new FunctionCallback<String>() {
+            public void done(String res, ParseException e) {
+                if (e == null) {
+                    // 'res' are valoarea: Joined successfully!
+                }
+                else {
+                    // 'res' are valoarea: Passenger already joined!
+                }
+            }
+        });
     }
 
     public void onDismiss(DialogInterface dialogInterface) {

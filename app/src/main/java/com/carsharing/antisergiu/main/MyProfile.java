@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -83,9 +84,42 @@ public class MyProfile extends Activity {
         ParseCloud.callFunctionInBackground("getUserInfo", params, new FunctionCallback<ParseObject>() {
             public void done(ParseObject res, ParseException e) {
                 if (e == null) {
-                    showMyProfileInfo(res.get("name").toString(), res.get("telephone").toString(),
-                            res.get("music").toString(), res.get("smoking").toString(),
-                            res.get("car").toString());
+                    String name;
+                    if(res.get("name") == null) {
+                        name = "";
+                    } else {
+                        name = res.get("name").toString();
+                    }
+
+                    String telephone;
+                    if(res.get("telephone") == null) {
+                        telephone = "";
+                    } else {
+                        telephone = res.get("telephone").toString();
+                    }
+
+                    String music;
+                    if(res.get("music") == null) {
+                        music = "false";
+                    } else {
+                        music = res.get("music").toString();
+                    }
+
+                    String smoking;
+                    if(res.get("smoking") == null) {
+                        smoking = "false";
+                    } else {
+                        smoking = res.get("smoking").toString();
+                    }
+
+                    String car;
+                    if(res.get("car") == null) {
+                        car = "";
+                    } else {
+                        car = res.get("car").toString();
+                    }
+
+                    showMyProfileInfo(name, telephone, music, smoking, car);
                 }
                 else {
 
