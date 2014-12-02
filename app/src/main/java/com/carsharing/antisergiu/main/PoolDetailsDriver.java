@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class PoolDetails extends Activity {
+public class PoolDetailsDriver extends Activity {
     protected static String type;
     private String poolID;
 
@@ -71,7 +71,8 @@ public class PoolDetails extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView;
-            rootView = inflater.inflate(R.layout.fragment_pool_details, container, false);
+            rootView = inflater.inflate(R.layout.fragment_pool_details_driver, container, false);
+
             return rootView;
         }
     }
