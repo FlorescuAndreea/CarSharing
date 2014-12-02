@@ -95,9 +95,19 @@ public class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<Str
             lineOptions.addAll(points);
             lineOptions.width(10);
             lineOptions.color(Color.RED);
+            Log.v("GMAPS", "------------------------" + duration + "   " + distance);
             ((EditText)tvDuration).setText(duration);
             ((EditText)tvDistance).setText(distance);
             map.addPolyline(lineOptions);
         }
+
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getDistance() {
+        return distance;
     }
 }

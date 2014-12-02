@@ -103,6 +103,7 @@ public class DownloadTask extends AsyncTask<String, Void, String> {
         parserTask.setViews(distanceView, timeView);
 
         parserTask.execute(result);
+        Log.v("DDD_MAPS","ceeeeva" + parserTask.getDistance() + "       " + parserTask.getDuration());
 
 //        ((EditText)timeView).setText(parserTask.getDuration());
 //        ((EditText)distanceView).setText(parserTask.getDistance());

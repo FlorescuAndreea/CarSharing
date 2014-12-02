@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.carsharing.antisergiu.model.MatchingPoolItem;
 import com.parse.FunctionCallback;
 import com.parse.Parse;
 import com.parse.ParseCloud;
@@ -34,7 +35,7 @@ public class LoginDialog extends DialogFragment {
         if (activity instanceof CreatePoolActivity) {
             prefs = CreatePoolActivity.prefs;
         } else {
-            prefs = ShowRouteActivity.prefs;
+            prefs = MatchingPoolsActivity.prefs;
         }
 
     }
@@ -51,7 +52,7 @@ public class LoginDialog extends DialogFragment {
         if (activity instanceof CreatePoolActivity) {
             ((CreatePoolActivity)activity).savePool();
         } else {
-            ((ShowRouteActivity)activity).joinPool();
+            ((MatchingPoolsActivity)activity).joinPool();
         }
     }
 
@@ -60,7 +61,7 @@ public class LoginDialog extends DialogFragment {
         if (activity instanceof CreatePoolActivity) {
             CreatePoolActivity.setmIsRegistered(true);
         } else {
-            ShowRouteActivity.setmIsRegistered(true);
+            MatchingPoolsActivity.setmIsRegistered(true);
         }
     }
 
@@ -69,7 +70,7 @@ public class LoginDialog extends DialogFragment {
         if (activity instanceof CreatePoolActivity) {
             return CreatePoolActivity.getRegistrationStatus();
         } else {
-            return ShowRouteActivity.getRegistrationStatus();
+            return MatchingPoolsActivity.getRegistrationStatus();
         }
     }
 

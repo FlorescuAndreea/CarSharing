@@ -39,16 +39,7 @@ public class ShowRouteActivity extends Activity  implements DialogInterface.OnDi
         return CreatePoolActivity.getContext();
     }
 
-    public static boolean getRegistrationStatus() {
-        return mIsRegistered;
-    }
 
-    public static void setmIsRegistered(boolean value) {
-        mIsRegistered = value;
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("registered", true);
-        editor.commit();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
