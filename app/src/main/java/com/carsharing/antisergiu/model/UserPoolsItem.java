@@ -6,20 +6,19 @@ import java.util.Date;
  * Created by Andreea on 11/27/2014.
  */
 public class UserPoolsItem {
-    private Date day;
-    private String hour;
+    private String date;
     private Integer people;
     private Integer id;
     private String driver;
     private String objectID;
 
 
+
     // STANDARD: if the user is the driver, the driver parameter will be empty
     // else it contains the drivers name
     // Integer id will be the initial position in the ArrayList when UserPoolsItem is created
-    public UserPoolsItem(String driver, Date day, String hour, Integer people, Integer id, String objectID) {
-        this.day = day;
-        this.hour = hour;
+    public UserPoolsItem(String driver, String date, Integer people, Integer id, String objectID) {
+        this.date = date;
         this.people = people;
         this.id = id;
         this.driver = driver;
@@ -47,20 +46,12 @@ public class UserPoolsItem {
         this.driver = driver;
     }
 
-    public Date getDay() {
-        return day;
+    public String getDate() {
+        return date;
     }
 
-    public void setDay(Date day) {
-        this.day = day;
-    }
-
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getPeople() {

@@ -22,9 +22,6 @@ public class UserPoolAdapter extends BaseAdapter {
 
     public UserPoolAdapter() {
         listElements = new ArrayList<UserPoolsItem>();
-        listElements.add(new UserPoolsItem("", new Date(), "18:00", 3, 1, ""));
-        listElements.add(new UserPoolsItem("George", new Date(), "23:00", 2, 2, ""));
-        listElements.add(new UserPoolsItem("Becali", new Date(), "09:00", 4, 3, ""));
     }
 
     public UserPoolAdapter(List<UserPoolsItem> poolItems) {
@@ -46,6 +43,11 @@ public class UserPoolAdapter extends BaseAdapter {
         return listElements.get(i).getId();
     }
 
+    public void addItem(UserPoolsItem item) {
+        listElements.add(item);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout layout;
@@ -56,7 +58,7 @@ public class UserPoolAdapter extends BaseAdapter {
             layout.setOrientation(LinearLayout.VERTICAL);
 
             TextView timeView = new TextView(parent.getContext());
-            timeView.setText("Day: " + currentPool.getDay() + " Hour: " + currentPool.getHour());
+            timeView.setText("Day: " + currentPool.getDate());
             timeView.setTextSize(18);
             timeView.setTypeface(null, Typeface.BOLD);
             timeView.setTextColor(Color.DKGRAY);

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,14 +17,36 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.carsharing.antisergiu.controller.UserPoolAdapter;
+import com.carsharing.antisergiu.model.UserPoolsItem;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+
+import org.apache.http.impl.cookie.DateParseException;
+import org.apache.http.impl.cookie.DateUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class MyPools extends Activity {
+
+    public static String sharedPrefsName = "AppPrefs";
+    public static SharedPreferences prefs;
+    protected static ArrayList<UserPoolsItem> poolList;
+    UserPoolAdapter userPoolAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pools);
+        poolList = new ArrayList<UserPoolsItem>();
+
+        prefs = getSharedPreferences(sharedPrefsName, MODE_MULTI_PROCESS);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
@@ -31,6 +55,79 @@ public class MyPools extends Activity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        getMyPools(prefs.getString("username", ""), 0);
+        getMyPools(prefs.getString("username", ""), 1);
+
+        userPoolAdapter = new UserPoolAdapter();
+        ListView listView = (ListView) findViewById(R.id.my_pools_listview);
+        listView.setAdapter(userPoolAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println(parent.getClass());
+                Intent intent = new Intent(parent.getContext(), PoolDetails.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    // get user's pools from server (type: 0 - driver, 1 - passenger)
+    public void getMyPools(String usn, final Integer userType) {
+        HashMap<String, Object> params = new HashMap <String, Object> ();
+        params.put("username", usn);
+        params.put("userType", userType);
+
+        ParseCloud.callFunctionInBackground("getMyPools", params, new FunctionCallback<ArrayList<ParseObject>>() {
+            public void done(ArrayList<ParseObject> res, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < res.size(); i++) {
+                        if (userType == 0)
+                            showInMyPoolsView(res.get(i).getObjectId(), res.get(i).get("date").toString(),
+                                    String.valueOf(res.get(i).getJSONArray("passengers").length()));
+                        else
+                            showInMyPoolsView(res.get(i).getObjectId(), res.get(i).get("driver").toString(),res.get(i).get("date").toString(),
+                                    String.valueOf(res.get(i).getJSONArray("passengers").length()));
+                    }
+
+                } else {
+                    // 'res' are valoarea: No pools to show!
+                }
+            }
+        });
+    }
+
+    public void showInMyPoolsView(String poolId, String date, String people) {
+        // aceste valori se pot pune in view-ul MyPools
+
+        Log.d("POOLID", poolId); // se foloseste la functia viewPool
+        Log.d("DATE", date);
+        Log.d("PEOPLE", people);
+
+        Integer peopleInt = Integer.parseInt(people);
+        Integer index = poolList.size();
+        Log.v("PoolsView", index + "");
+        String driver = "";
+        String objectID = poolId;
+        userPoolAdapter.addItem(new UserPoolsItem(driver, date, peopleInt, index, objectID));
+    }
+
+    public void showInMyPoolsView(String poolId, String driver, String date, String people) {
+        // aceste valori se pot pune in view-ul MyPools
+
+        Log.d("POOLID", poolId); // se foloseste la functia viewPool
+        Log.d("DRIVER", driver);
+        Log.d("DATE", date);
+        Log.d("PEOPLE", people);
+
+        userPoolAdapter.addItem(new UserPoolsItem(driver, date, Integer.parseInt(people), poolList.size(), poolId));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,6 +151,13 @@ public class MyPools extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        poolList.clear();
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -70,9 +174,17 @@ public class MyPools extends Activity {
             // TODO create UserPoolAdapter using contructor with List as a parameter
             // TODO when adding a UserPoolItem, if the driver is the current user, create an object
             // with empty string "" as parameter for driver
-            UserPoolAdapter userPoolAdapter = new UserPoolAdapter();
+            Log.v("AICI", poolList.size() + "");
+
+            for (int i = 0; i < poolList.size(); i++)
+                Log.v("BLESS", poolList.get(i).getDriver());
+
+
+
+            UserPoolAdapter userPoolAdapter = new UserPoolAdapter(MyPools.poolList);
             ListView listView = (ListView) rootView.findViewById(R.id.my_pools_listview);
             listView.setAdapter(userPoolAdapter);
+
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
