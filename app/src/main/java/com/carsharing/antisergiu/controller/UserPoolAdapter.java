@@ -22,9 +22,13 @@ public class UserPoolAdapter extends BaseAdapter {
 
     public UserPoolAdapter() {
         listElements = new ArrayList<UserPoolsItem>();
-        listElements.add(new UserPoolsItem("", new Date(), "18:00", 3, 1));
-        listElements.add(new UserPoolsItem("George", new Date(), "23:00", 2, 2));
-        listElements.add(new UserPoolsItem("Becali", new Date(), "09:00", 4, 3));
+        listElements.add(new UserPoolsItem("", new Date(), "18:00", 3, 1, ""));
+        listElements.add(new UserPoolsItem("George", new Date(), "23:00", 2, 2, ""));
+        listElements.add(new UserPoolsItem("Becali", new Date(), "09:00", 4, 3, ""));
+    }
+
+    public UserPoolAdapter(List<UserPoolsItem> poolItems) {
+       this.listElements = poolItems;
     }
 
     @Override

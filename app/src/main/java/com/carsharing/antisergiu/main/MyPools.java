@@ -66,6 +66,10 @@ public class MyPools extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_my_pools, container, false);
+            // TODO get pools from db and add them to a List<UserPoolsItems>
+            // TODO create UserPoolAdapter using contructor with List as a parameter
+            // TODO when adding a UserPoolItem, if the driver is the current user, create an object
+            // with empty string "" as parameter for driver
             UserPoolAdapter userPoolAdapter = new UserPoolAdapter();
             ListView listView = (ListView) rootView.findViewById(R.id.my_pools_listview);
             listView.setAdapter(userPoolAdapter);

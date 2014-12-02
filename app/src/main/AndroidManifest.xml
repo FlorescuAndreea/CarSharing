@@ -80,6 +80,10 @@
             android:label="@string/title_activity_search_pool" >
         </activity>
         <activity
+            android:name="com.carsharing.antisergiu.main.ShowRouteActivity"
+            android:label="@string/title_join_pool" >
+        </activity>
+        <activity
             android:name="com.carsharing.antisergiu.main.MyProfile"
             android:label="@string/title_activity_my_profile" >
         </activity>
