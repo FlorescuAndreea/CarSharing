@@ -23,7 +23,7 @@
                 android:text="The distance to the destination is:"
                />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/show_route_distance"/>
@@ -43,7 +43,7 @@
             android:text="The duration of the trip:"
             />
 
-        <EditText
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/show_route_duration"/>
