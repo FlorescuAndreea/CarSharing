@@ -23,14 +23,32 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.carsharing.antisergiu.controller.RoutesAdapter;
+import com.carsharing.antisergiu.model.MatchingPoolItem;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TimeZone;
 
 public class MatchingPoolsActivity extends Activity implements DialogInterface.OnDismissListener {
     public static String sharedPrefsName = "AppPrefs";
     public static SharedPreferences prefs;
     public static boolean mIsRegistered = false;
+
+    private static MatchingPoolItem matchingItem = new MatchingPoolItem();
+    private static int counter = 0;
+    private LatLng origin, destination;
+    private String day, hour;
+    private long time = 0;
 
     public static boolean getRegistrationStatus() {
         return mIsRegistered;
@@ -60,6 +78,8 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         prefs = getSharedPreferences(sharedPrefsName, MODE_MULTI_PROCESS);
         mIsRegistered = prefs.getBoolean("registered", false);
 
+
+
         Log.d("MAPS", "creando MatchingPoolsActivity");
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -68,6 +88,32 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Intent intent = getIntent();
+        origin = new LatLng(intent.getDoubleExtra("SOURCE_LAT", 0), intent.getDoubleExtra("SOURCE_LONG", 0));
+        destination = new LatLng(intent.getDoubleExtra("DEST_LAT", 0), intent.getDoubleExtra("DEST_LONG", 0));
+
+        day = intent.getStringExtra("DATE");
+        hour = intent.getStringExtra("HOUR");
+
+        day += (" " + hour);
+        java.util.Date d = null;
+
+        try {
+            SimpleDateFormat isoFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+            isoFormat.setTimeZone(TimeZone.getTimeZone("Europe/Bucharest"));
+            d = isoFormat.parse(day);
+            time = d.getTime();
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        PlaceholderFragment.matchingPools(new ParseGeoPoint(origin.latitude, origin.longitude),
+                new ParseGeoPoint(destination.latitude, destination.longitude), new Date(time));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,7 +148,7 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         public PlaceholderFragment() {
 
         }
-
+        static RoutesAdapter adapter;
 
 
         @Override
@@ -111,7 +157,7 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
 
             View rootView = inflater.inflate(R.layout.fragment_matching_pools, container, false);
 
-            RoutesAdapter adapter = new RoutesAdapter();
+            adapter = new RoutesAdapter();
             ListView listView = (ListView) rootView.findViewById(R.id.matching_pools_listview);
             listView.setAdapter(adapter);
 //            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -126,98 +172,65 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         }
 
 
-//        public void showRoute(View view) {
-//            Intent createShowRootIntent = new Intent(this.getActivity(), ShowRouteActivity.class);
-//
-//            createShowRootIntent.putExtra("SOURCE_LAT", 50);
-//            createShowRootIntent.putExtra("SOURCE_LONG", 51);
-//            createShowRootIntent.putExtra("DEST_LAT", 50.05);
-//            createShowRootIntent.putExtra("DEST_LONG", 51.07);
-//
-//            startActivity(createShowRootIntent);
-//        }
+        // user's matching pools
+        public static void matchingPools(ParseGeoPoint source, ParseGeoPoint dest, Date date) {
+            HashMap<String, Object> params = new HashMap <String, Object> ();
+            params.put("source", source);
+            params.put("destination", dest);
+            params.put("date", date);
 
-        public void showLoginDialog(View view) {
-            LoginDialog loginDialog = new LoginDialog();
-            loginDialog.show(this.getFragmentManager(), "fragment_login");
-        }
+            ParseCloud.callFunctionInBackground("matchingPools", params, new FunctionCallback<ArrayList<ParseObject>>() {
+                public void done(ArrayList<ParseObject> res, ParseException e) {
+                    if (e == null) {
+                        String usn = null;
 
-        private class RoutesAdapter extends BaseAdapter {
+                        for (int i = 0; i < res.size(); i++) {
+                            usn = res.get(i).get("driver").toString();
 
-            private ArrayList<Route> routes;
-
-            public RoutesAdapter() {
-                routes = new ArrayList<Route>();
-                Time t = new Time();
-                t.setToNow();
-                    routes.add(new Route("Farcasanu",3,10, 1, 3, 3, 12, 23, new LatLng(1,1), new LatLng(2,2)));
-                t.set(0,1,2,3,4,5);
-                routes.add(new Route("Antoche",2,9, 3, 2, 1, 23, 12, new LatLng(1,1), new LatLng(2,2)));
-                routes.add(new Route("Grecule",2,5, 3, 2, 1, 23, 12, new LatLng(1,1), new LatLng(2,2)));
-            }
-
-            public int getCount() {
-                return routes.size();
-            }
-
-            public Route getItem(int position) {
-                return routes.get(position);
-            }
-
-            public long getItemId(int position) {
-                return routes.get(position).getId();
-            }
-
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                LinearLayout layout;
-                Route currRoute = routes.get(position);
-
-                if (convertView == null) {
-                    layout = new LinearLayout(parent.getContext());
-                    layout.setOrientation(LinearLayout.VERTICAL);
-
-                    TextView timeView = new TextView(parent.getContext());
-                    timeView.setText(String.format("%02d", currRoute.getDepatureDate()) + "/" + String.format("%02d", currRoute.getDepatureMonth()) + "/" + currRoute.getDepatureYear() + " " + String.format("%02d", currRoute.getDepatureHour()) + ":" + String.format("%02d", currRoute.getDepatureMinute()));
-                    timeView.setTextSize(18);
-                    timeView.setTypeface(null, Typeface.BOLD);
-                    timeView.setTextColor(Color.DKGRAY);
-                    layout.addView(timeView);
-
-                    TextView driverView = new TextView(parent.getContext());
-                    driverView.setText("Driver: " + currRoute.getDriver());
-                    driverView.setTextSize(18);
-                    driverView.setTextColor(Color.DKGRAY);
-                    layout.addView(driverView);
-
-                    TextView ratingView = new TextView(parent.getContext());
-                    ratingView.setText("Rating: " + currRoute.getRating());
-                    ratingView.setTextSize(18);
-                    ratingView.setTextColor(Color.DKGRAY);
-                    layout.addView(ratingView);
-
-                    Button joinBtn = new Button(parent.getContext());
-                    joinBtn.setText("JOIN");
-                    joinBtn.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    joinBtn.setBackgroundResource(android.R.color.holo_green_dark);
-                    joinBtn.setTextColor(Color.WHITE);
-                    joinBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            showLoginDialog(view);
+                            showInMatchingPoolsView(res.get(i).getObjectId(), usn);
                         }
-                    });
-                    layout.addView(joinBtn);
-
+                    } else {
+                        // 'res' are valoarea: There are no pools!
+                    }
                 }
-                else {
-                    layout = (LinearLayout) convertView;
-                }
-
-                return layout;
-            }
-
+            });
         }
 
+        public static void showInMatchingPoolsView(String poolId, String driver) {
+
+            matchingItem.setObjectID(poolId);
+            matchingItem.setDriver(driver);
+            matchingItem.setId(counter++);
+            getRating(driver);
+        }
+
+        // get user's rating
+        public static void getRating(String username) {
+            HashMap <String, Object> params = new HashMap <String, Object> ();
+            params.put("username", username);
+
+            ParseCloud.callFunctionInBackground("getRating", params, new FunctionCallback<String>() {
+                public void done(String res, ParseException e) {
+                    if (e == null) {
+                        showRatingInMatchingPoolsView(res);
+
+                    }
+                    else {
+                        // 'res' are valoarea: Driver not found!
+                    }
+                }
+            });
+        }
+
+        public static void showRatingInMatchingPoolsView(String rating) {
+            matchingItem.setRating(rating);
+            adapter.addItem(matchingItem);
+        }
+
+    }
+
+    public void showLoginDialog(View view) {
+        LoginDialog loginDialog = new LoginDialog();
+        loginDialog.show(this.getFragmentManager(), "fragment_login");
     }
 }

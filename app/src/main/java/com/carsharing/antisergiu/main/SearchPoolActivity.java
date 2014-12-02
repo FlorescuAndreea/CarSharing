@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -42,7 +43,7 @@ public class SearchPoolActivity extends Activity {
         else
             minuteSting = "" +minute;
 
-        return hourString + " : " + minuteSting;
+        return hourString + ":" + minuteSting;
     }
 
     public static String convertToDate(int year, int month, int day) {
@@ -178,7 +179,12 @@ public class SearchPoolActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_search_pool, container, false);
-
+            rootView.findViewById(R.id.search_pool_btn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    searchPool(v);
+                }
+            });
             GoogleMap map;
             map = ((MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
@@ -207,10 +213,18 @@ public class SearchPoolActivity extends Activity {
 
 
         }
+
+        public void searchPool(View view) {
+            Intent matchingPoolIntent = new Intent(getActivity(), MatchingPoolsActivity.class);
+            matchingPoolIntent.putExtra("SOURCE_LAT", mapController.getOrigin().latitude);
+            matchingPoolIntent.putExtra("SOURCE_LONG", mapController.getOrigin().longitude);
+            matchingPoolIntent.putExtra("DEST_LAT", mapController.getDestination().latitude);
+            matchingPoolIntent.putExtra("DEST_LONG", mapController.getDestination().longitude);
+            matchingPoolIntent.putExtra("DATE", ((EditText)getActivity().findViewById(R.id.create_tv_date)).getText().toString());
+            matchingPoolIntent.putExtra("HOUR", ((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString());
+            startActivity(matchingPoolIntent);
+        }
     }
 
-    public void searchPool(View view) {
-        Intent matchingPoolIntent = new Intent(this, MatchingPoolsActivity.class);
-        startActivity(matchingPoolIntent);
-    }
+
 }
