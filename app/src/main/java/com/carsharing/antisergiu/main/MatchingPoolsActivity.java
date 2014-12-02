@@ -42,8 +42,11 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         editor.putBoolean("registered", true);
         editor.commit();
     }
-    public void joinPool() {
 
+
+    public void joinPool() {
+        // TODO add login logic
+        // TODO add user to pool in db
     }
     public void onDismiss(DialogInterface dialogInterface) {
         joinPool();
