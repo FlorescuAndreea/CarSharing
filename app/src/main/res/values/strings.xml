@@ -58,5 +58,6 @@
     <string name="title_activity_my_pools">MyPools</string>
     <string name="action_my_pools">My Pools</string>
     <string name="title_join_pool">Join Pool</string>
+    <string name="action_login">Login</string>
 
 </resources>
