@@ -34,10 +34,12 @@ public class LoginDialog extends DialogFragment {
         Activity activity = mdialog.getActivity();
         if (activity instanceof CreatePoolActivity) {
             prefs = CreatePoolActivity.prefs;
-        } else {
+        } else if (activity instanceof MatchingPoolsActivity) {
             prefs = MatchingPoolsActivity.prefs;
+        } else if (activity instanceof  MainActivity) {
+            prefs = MainActivity.prefs;
         }
-
+        prefs = MainActivity.prefs;
     }
 
     public void registerOnDismissDialog(DialogInterface.OnDismissListener listener) {
@@ -51,7 +53,7 @@ public class LoginDialog extends DialogFragment {
         Log.v("CARSHARING", "Din activity: " + activity.getClass().toString());
         if (activity instanceof CreatePoolActivity) {
             ((CreatePoolActivity)activity).savePool();
-        } else {
+        } else if (activity instanceof MatchingPoolsActivity) {
             ((MatchingPoolsActivity)activity).joinPool();
         }
     }
@@ -60,8 +62,10 @@ public class LoginDialog extends DialogFragment {
         Activity activity = mdialog.getActivity();
         if (activity instanceof CreatePoolActivity) {
             CreatePoolActivity.setmIsRegistered(true);
-        } else {
+        } else if (activity instanceof MatchingPoolsActivity) {
             MatchingPoolsActivity.setmIsRegistered(true);
+        } else if (activity instanceof MainActivity) {
+            MainActivity.setmIsRegistered(true);
         }
     }
 
@@ -69,9 +73,13 @@ public class LoginDialog extends DialogFragment {
         Activity activity = mdialog.getActivity();
         if (activity instanceof CreatePoolActivity) {
             return CreatePoolActivity.getRegistrationStatus();
-        } else {
+        } else if (activity instanceof MatchingPoolsActivity) {
             return MatchingPoolsActivity.getRegistrationStatus();
+        } else if  (activity instanceof MainActivity) {
+            return MainActivity.getRegistrationStatus();
         }
+
+        return false;
     }
 
     @Override

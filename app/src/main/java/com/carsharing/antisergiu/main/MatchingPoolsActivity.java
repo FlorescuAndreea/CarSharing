@@ -48,6 +48,7 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         // TODO add login logic
         // TODO add user to pool in db
     }
+
     public void onDismiss(DialogInterface dialogInterface) {
         joinPool();
     }
