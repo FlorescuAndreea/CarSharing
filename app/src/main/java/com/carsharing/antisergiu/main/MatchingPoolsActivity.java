@@ -154,7 +154,7 @@ public class MatchingPoolsActivity extends Activity {
                     layout.addView(driverView);
 
                     TextView priceView = new TextView(parent.getContext());
-                    priceView.setText("Rating: " + currRoute.getRating() + "$");
+                    priceView.setText("Rating: " + currRoute.getRating());
                     priceView.setTextSize(18);
                     priceView.setTextColor(Color.DKGRAY);
                     layout.addView(priceView);
