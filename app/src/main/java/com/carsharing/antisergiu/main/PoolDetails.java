@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
@@ -93,6 +94,12 @@ public class PoolDetails extends Activity {
         poolDetails.setDestination(dest_lat, dest_long);
         poolDetails.setDriverUsername(driver);
         poolDetails.setDriverTelephone(telephone);
+
+        TextView driverView = (TextView) findViewById(R.id.driver_label);
+        driverView.setText(driver);
+
+        TextView telephoneView = (TextView) findViewById(R.id.telephone_number);
+        telephoneView.setText(telephone);
     }
 
     @Override
