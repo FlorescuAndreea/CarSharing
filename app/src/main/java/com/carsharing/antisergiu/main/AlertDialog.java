@@ -6,18 +6,19 @@ import android.content.DialogInterface;
 /**
  * Created by Andreea on 12/3/2014.
  */
-public class LocationAlertDialog {
+public class AlertDialog {
 
     Context context;
 
-    public LocationAlertDialog(Context context) {
+    public AlertDialog(Context context) {
         this.context = context;
     }
 
-    public void createDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    public void createDialog(String name, String message) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setCancelable(true);
+        builder.setTitle(name);
         builder.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -25,7 +26,7 @@ public class LocationAlertDialog {
                     }
                 });
 
-        AlertDialog alert = builder.create();
+        android.app.AlertDialog alert = builder.create();
         alert.show();
     }
 }
