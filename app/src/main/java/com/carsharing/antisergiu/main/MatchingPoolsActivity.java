@@ -196,6 +196,12 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
           return rootView;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            adapter = new RoutesAdapter();
+        }
+
 
         // user's matching pools
         public static void matchingPools(ParseGeoPoint source, ParseGeoPoint dest, Date date, int walking_dest) {

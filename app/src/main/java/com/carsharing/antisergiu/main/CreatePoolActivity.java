@@ -76,9 +76,9 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             if (origin == null || destination == null) {
                 CustomAlertDialog alertDialog = new CustomAlertDialog(this);
                 if (origin == null) {
-                    alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!");
+                    alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!", null);
                 } else {
-                    alertDialog.createDialog("Create Pool Error", "Please select the destination of your route!");
+                    alertDialog.createDialog("Create Pool Error", "Please select the destination of your route!", null);
                 }
             } else {
                 String date = ((EditText) findViewById(R.id.create_tv_date)).getText().toString();
@@ -117,7 +117,9 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 Log.v("CARSHARING", "Seats: " + seats + " Weekly: " + weekly);
                 Log.v("CARSHARING", "Username: " + driverUsername);
                 // after the pool is saved, redirect to mypools view
-                Intent intent = new Intent(this, MyPools.class);
+                CustomAlertDialog successAlertDialog = new CustomAlertDialog(this);
+                successAlertDialog.createDialog("Create Pool", "Pool Created Successfully!");
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
 

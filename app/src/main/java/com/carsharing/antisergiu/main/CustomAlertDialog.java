@@ -10,21 +10,26 @@ public class CustomAlertDialog {
 
     Context context;
 
+
     public CustomAlertDialog(Context context) {
         this.context = context;
     }
 
-    public void createDialog(String name, String message) {
+    public void createDialog(String name, String message, DialogInterface.OnClickListener listener) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
         builder.setMessage(message);
         builder.setCancelable(true);
         builder.setTitle(name);
-        builder.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+        if (listener == null) {
+            builder.setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+        } else {
+            builder.setPositiveButton("OK", listener);
+        }
 
         android.app.AlertDialog alert = builder.create();
         alert.show();
