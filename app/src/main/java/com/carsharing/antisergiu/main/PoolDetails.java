@@ -29,8 +29,6 @@ public class PoolDetails extends Activity {
     protected static String type;
     private String poolID;
 
-    public static com.carsharing.antisergiu.model.PoolDetails poolDetails;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +36,6 @@ public class PoolDetails extends Activity {
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
         poolID = intent.getStringExtra("objectID");
-
-        Button submitRating = (Button)findViewById(R.id.submit_btn);
-        final Spinner rateSpinner = (Spinner) findViewById(R.id.spinner);
-        final TextView driverUsername = (TextView) findViewById(R.id.driver_name);
-
-        submitRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rateDriver(driverUsername.getText().toString(), Integer.parseInt(rateSpinner.getSelectedItem().toString()));
-            }
-        });
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -103,31 +90,12 @@ public class PoolDetails extends Activity {
     }
 
     // rate driver
-    public void rateDriver(String username, Integer rating) {
-        HashMap <String, Object> params = new HashMap <String, Object> ();
-        params.put("username", username);
-        params.put("rating", rating);
 
-        ParseCloud.callFunctionInBackground("rateDriver", params, new FunctionCallback<String>() {
-            public void done(String res, ParseException e) {
-                if (e == null) {
-                    // 'res' are valoarea: Driver rated successfully!
-                }
-                else {
-                    // 'res' are valoarea: Driver not found!
-                }
-            }
-        });
-    }
 
     public void addDetailsToPool(Double source_lat, Double source_long, Double dest_lat, Double dest_long,
                                  String driver, String telephone) {
-        poolDetails.setSource(source_lat, source_long);
-        poolDetails.setDestination(dest_lat, dest_long);
-        poolDetails.setDriverUsername(driver);
-        poolDetails.setDriverTelephone(telephone);
 
-        TextView driverView = (TextView) findViewById(R.id.driver_label);
+        TextView driverView = (TextView) findViewById(R.id.driver_name);
         driverView.setText(driver);
 
         TextView telephoneView = (TextView) findViewById(R.id.telephone_number);
@@ -175,7 +143,34 @@ public class PoolDetails extends Activity {
                                  Bundle savedInstanceState) {
             View rootView;
             rootView = inflater.inflate(R.layout.fragment_pool_details, container, false);
+
+            Button submitRating = (Button)rootView.findViewById(R.id.submit_btn);
+            final Spinner rateSpinner = (Spinner) rootView.findViewById(R.id.spinner);
+            final TextView driverUsername = (TextView) rootView.findViewById(R.id.driver_name);
+            submitRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rateDriver(driverUsername.getText().toString(), Integer.parseInt(rateSpinner.getSelectedItem().toString()));
+                }
+            });
             return rootView;
+        }
+
+        public void rateDriver(String username, Integer rating) {
+            HashMap <String, Object> params = new HashMap <String, Object> ();
+            params.put("username", username);
+            params.put("rating", rating);
+
+            ParseCloud.callFunctionInBackground("rateDriver", params, new FunctionCallback<String>() {
+                public void done(String res, ParseException e) {
+                    if (e == null) {
+                        // 'res' are valoarea: Driver rated successfully!
+                    }
+                    else {
+                        // 'res' are valoarea: Driver not found!
+                    }
+                }
+            });
         }
     }
 }
