@@ -241,9 +241,9 @@ public class SearchPoolActivity extends Activity {
             if (source == null || destination == null) {
                 CustomAlertDialog alertDialog = new CustomAlertDialog(this.getActivity());
                 if (source == null) {
-                    alertDialog.createDialog("Search Pool Error", "Please select source and destination for your route!");
+                    alertDialog.createDialog("Search Pool Error", "Please select source and destination for your route!", null);
                 } else {
-                    alertDialog.createDialog("Search Pool Error", "Please select the destination of your route!");
+                    alertDialog.createDialog("Search Pool Error", "Please select the destination of your route!", null);
                 }
             } else {
                 Intent matchingPoolIntent = new Intent(getActivity(), MatchingPoolsActivity.class);
