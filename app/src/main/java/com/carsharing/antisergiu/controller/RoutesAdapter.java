@@ -1,6 +1,7 @@
 package com.carsharing.antisergiu.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.format.Time;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.carsharing.antisergiu.main.LoginDialog;
 import com.carsharing.antisergiu.main.MatchingPoolsActivity;
+import com.carsharing.antisergiu.main.MyPools;
 import com.carsharing.antisergiu.main.Route;
 import com.carsharing.antisergiu.model.MatchingPoolItem;
 import com.google.android.gms.maps.model.LatLng;
@@ -74,7 +76,9 @@ public class RoutesAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Activity host = (Activity) view.getContext();
-                    ((MatchingPoolsActivity)host).showLoginDialog(view);
+                    LoginDialogListener loginDialogListener = new LoginDialogListener(host, view);
+
+
                 }
             });
             layout.addView(joinBtn);
