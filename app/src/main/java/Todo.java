@@ -49,6 +49,10 @@ public class Todo {
             STATUS: IN_PROGRESS
             PRIORITY: MEDIUM
 
+        7c. Matching Pools: redirect to MyPools after user presses join
+            STATUS: IN_PROGRESS
+            PRIORITY: MEDIUM
+
         7. Redesign Matching Pools (move button next to text; now it is below text -> can be done
            with RelativeLayout instead of LinearLayout
             STATUS: IN_PROGRESS
