@@ -73,6 +73,11 @@ public class MyPools extends Activity {
     protected void onStart() {
         super.onStart();
 
+        displayPools();
+    }
+
+    public void displayPools(){
+
         getMyPools(prefs.getString("username", ""), 0);
         getMyPools(prefs.getString("username", ""), 1);
 
@@ -92,7 +97,6 @@ public class MyPools extends Activity {
                 }
             }
         });
-
     }
 
     // get user's pools from server (type: 0 - driver, 1 - passenger)
@@ -103,6 +107,7 @@ public class MyPools extends Activity {
 
         ParseCloud.callFunctionInBackground("getMyPools", params, new FunctionCallback<ArrayList<ParseObject>>() {
             public void done(ArrayList<ParseObject> res, ParseException e) {
+
                 if (e == null) {
                     for (int i = 0; i < res.size(); i++) {
                         if (userType == 0)
