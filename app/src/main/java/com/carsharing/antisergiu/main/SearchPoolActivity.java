@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -253,6 +254,7 @@ public class SearchPoolActivity extends Activity {
                 matchingPoolIntent.putExtra("DEST_LONG", destination.longitude);
                 matchingPoolIntent.putExtra("DATE", ((EditText)getActivity().findViewById(R.id.create_tv_date)).getText().toString());
                 matchingPoolIntent.putExtra("HOUR", convertToGMT(((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString(), 2));
+                matchingPoolIntent.putExtra("WALKING_DIST", ((Spinner)getActivity().findViewById(R.id.walking_distance)).getSelectedItem().toString());
                 startActivity(matchingPoolIntent);
             }
 

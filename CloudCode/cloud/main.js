@@ -215,7 +215,7 @@ Parse.Cloud.define("getRating", function(request, response) {
 Parse.Cloud.define("matchingPools", function(request, response) {
 	var query = new Parse.Query("Pools");
 	
-	query.whereWithinKilometers("source", request.params.source, request.params.walking_distance);
+	query.withinKilometers("source", request.params.source, request.params.walking_distance);
 	query.equalTo("date", request.params.date);
 	
 	query.find({
