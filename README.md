@@ -7,14 +7,18 @@ Membrii echipei:
   Hoaghe Radu, Grupa 341C5
   Necula Cristina-Suzana, Grupa 341C5
   Serban Marius-Andrei, Grupa 341C5
-  
-Mediul de dezvoltare folosit: Android Studio 0.8.14
+ 
+Mediul de dezvoltare folosit: Android Studio 0.8.14.
+
 Am folosit Android SDK 5.0 (API 21) si JDK 7.
+
 Pentru partea de server am folosit serviciile oferite de Parse (https://parse.com).
 
 Aplicatia este realizata spre a fi folosita pe dispozitive mobile de tip tableta.
+
 Pentru a rula aplicatia este necesara o conexiune la Internet, iar pentru a beneficia de toate functionalitatile
 sale, fiecare utlizator trebuie sa detina un cont propriu.
+
 Testarea aplicatiei s-a realizat pe o tableta ASUS Nexus 7 (2013) pe un sistem de operare Android 4.4.4 (Kit Kat).
 
 Descrierea aplicatiei:
