@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.carsharing.antisergiu.model.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -105,7 +108,28 @@ public class PoolDetailsDriver extends Activity {
     }
 
     public void addPassengerToPool(String usn, String phone) {
+        LinearLayout listLayout = (LinearLayout)findViewById(R.id.passenger_list);
 
+        LinearLayout detailsLayout = new LinearLayout(listLayout.getContext());
+
+        TextView nameView = new TextView(detailsLayout.getContext());
+        nameView.setText(usn);
+        nameView.setTextSize(30);
+        nameView.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+
+        TextView telephoneView = new TextView(detailsLayout.getContext());
+        LinearLayout.LayoutParams textViewLayout = new  LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textViewLayout.setMargins(20, 0, 0, 0);
+        telephoneView.setLayoutParams(textViewLayout);
+        telephoneView.setText(phone);
+        telephoneView.setTextSize(20);
+        Linkify.addLinks(telephoneView, Linkify.ALL);
+
+        detailsLayout.addView(nameView);
+        detailsLayout.addView(telephoneView);
+
+        listLayout.addView(detailsLayout);
     }
 
     public void addDetailsToPool(Double source_lat, Double source_long, Double dest_lat, Double dest_long,
