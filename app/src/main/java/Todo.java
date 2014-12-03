@@ -20,6 +20,7 @@ public class Todo {
             PRIORITY: HIGH
             STATUS: IN_PROGRESS
 
+
         4. Create Pool:
             Prompt user when tries to create a pool without one of the following:
                 - location source

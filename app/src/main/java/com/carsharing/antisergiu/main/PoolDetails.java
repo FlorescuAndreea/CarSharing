@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -63,6 +67,7 @@ public class PoolDetails extends Activity {
                     final String source_long = String.valueOf(res.get(0).getParseGeoPoint("source").getLongitude());
                     final String dest_lat = String.valueOf(res.get(0).getParseGeoPoint("destination").getLatitude());
                     final String dest_long = String.valueOf(res.get(0).getParseGeoPoint("destination").getLongitude());
+                    final String weekly = String.valueOf(res.get(0).get("weekly"));
 
                     HashMap<String, Object> tmp = new HashMap<String, Object>();
 
@@ -76,6 +81,8 @@ public class PoolDetails extends Activity {
                                 if (e == null) {
                                     addDetailsToPool(Double.parseDouble(source_lat), Double.parseDouble(source_long),
                                             Double.parseDouble(dest_lat), Double.parseDouble(dest_long), usn, phone);
+                                    setLocationToPool(Double.parseDouble(source_lat), Double.parseDouble(source_long),
+                                            Double.parseDouble(dest_lat), Double.parseDouble(dest_long), Boolean.parseBoolean(weekly));
                                 } else {
                                     // 'res' are valoarea: User not found!
                                 }
@@ -100,6 +107,27 @@ public class PoolDetails extends Activity {
 
         TextView telephoneView = (TextView) findViewById(R.id.telephone_number);
         telephoneView.setText(telephone);
+    }
+
+    public void setLocationToPool(Double source_lat, Double source_long, Double dest_lat, Double dest_long,
+                                 Boolean weekly) {
+
+        LatLng source = new LatLng(source_lat, source_long);
+        LatLng destination = new LatLng(dest_lat, dest_long);
+        setMapLocations(source, destination);
+    }
+
+    void setMapLocations(LatLng source, LatLng dest) {
+        // Map Controller
+        GoogleMap map;
+        map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map_view_pool)).getMap();
+
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(source, 15));
+
+        MapController mapController = new MapController(map);
+        mapController.setOrigin(source);
+        mapController.setDestination(dest);
     }
 
     @Override
