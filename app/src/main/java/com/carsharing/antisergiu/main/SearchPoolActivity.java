@@ -239,7 +239,7 @@ public class SearchPoolActivity extends Activity {
             LatLng destination = mapController.getDestination();
 
             if (source == null || destination == null) {
-                AlertDialog alertDialog = new AlertDialog(this.getActivity());
+                CustomAlertDialog alertDialog = new CustomAlertDialog(this.getActivity());
                 if (source == null) {
                     alertDialog.createDialog("Search Pool Error", "Please select source and destination for your route!");
                 } else {

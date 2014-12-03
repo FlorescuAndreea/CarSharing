@@ -74,7 +74,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             LatLng destination = mapController.getDestination();
 
             if (origin == null || destination == null) {
-                AlertDialog alertDialog = new AlertDialog(this);
+                CustomAlertDialog alertDialog = new CustomAlertDialog(this);
                 if (origin == null) {
                     alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!");
                 } else {
