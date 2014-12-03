@@ -67,5 +67,9 @@ public class Todo {
             and GeoLocation Points)
             STATUS: IN_PROGRESS
             PRIORITY: HIGH
+
+         10. Server Code: After adding passenger to pool, decrease number of available seats
+            STATUS: IN_PROGRESS
+            PRIORITY: HIGH
      */
 }
