@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:drawSelectorOnTop="true"
                     android:layout_marginRight="10dp"
-
+                    android:id="@+id/walking_distance"
                     android:layout_marginTop="15dp"
                     android:textAlignment="center"
                     android:entries="@array/distances">

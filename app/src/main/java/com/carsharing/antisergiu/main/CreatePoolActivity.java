@@ -117,7 +117,9 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 Log.v("CARSHARING", "Seats: " + seats + " Weekly: " + weekly);
                 Log.v("CARSHARING", "Username: " + driverUsername);
                 // after the pool is saved, redirect to mypools view
-                Intent intent = new Intent(this, MyPools.class);
+                CustomAlertDialog successAlertDialog = new CustomAlertDialog(this);
+                successAlertDialog.createDialog("Create Pool", "Pool Created Successfully!");
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }
 

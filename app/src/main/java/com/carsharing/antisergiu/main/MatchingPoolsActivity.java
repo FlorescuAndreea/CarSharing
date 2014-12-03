@@ -48,6 +48,7 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
     private static int counter = 0;
     private LatLng origin, destination;
     private String day, hour;
+    private int walking_distance;
     private long time = 0;
 
     public static boolean getRegistrationStatus() {
@@ -98,8 +99,6 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         prefs = getSharedPreferences(sharedPrefsName, MODE_MULTI_PROCESS);
         mIsRegistered = prefs.getBoolean("registered", false);
 
-
-
         Log.d("MAPS", "creando MatchingPoolsActivity");
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -119,6 +118,10 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         day = intent.getStringExtra("DATE");
         hour = intent.getStringExtra("HOUR");
 
+        String wd = intent.getStringExtra("WALKING_DIST");
+
+        walking_distance = Integer.parseInt(wd.substring(0, wd.indexOf(' ')));
+
         day += (" " + hour);
         java.util.Date d = null;
 
@@ -132,7 +135,9 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         }
 
         PlaceholderFragment.matchingPools(new ParseGeoPoint(origin.latitude, origin.longitude),
-                new ParseGeoPoint(destination.latitude, destination.longitude), new Date(time));
+                new ParseGeoPoint(destination.latitude, destination.longitude), new Date(time), walking_distance);
+
+
     }
 
     @Override
@@ -191,13 +196,20 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
           return rootView;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            adapter = new RoutesAdapter();
+        }
+
 
         // user's matching pools
-        public static void matchingPools(ParseGeoPoint source, ParseGeoPoint dest, Date date) {
+        public static void matchingPools(ParseGeoPoint source, ParseGeoPoint dest, Date date, int walking_dest) {
             HashMap<String, Object> params = new HashMap <String, Object> ();
             params.put("source", source);
             params.put("destination", dest);
             params.put("date", date);
+            params.put("walking_distance", walking_dest);
 
             ParseCloud.callFunctionInBackground("matchingPools", params, new FunctionCallback<ArrayList<ParseObject>>() {
                 public void done(ArrayList<ParseObject> res, ParseException e) {
