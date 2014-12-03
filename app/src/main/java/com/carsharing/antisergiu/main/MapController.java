@@ -68,6 +68,21 @@ public class MapController implements GoogleMap.OnMarkerDragListener {
 
     };
 
+    public void setOrigin(LatLng _origin) {
+        Marker origin= mMap.addMarker(new MarkerOptions().position(_origin)
+                .title("ORIGIN")
+                .snippet("Origin")
+                .icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+    }
+
+    public void setDestination(LatLng destination) {
+        Marker dest= mMap.addMarker(new MarkerOptions().position(destination)
+                .title("DESTINATION")
+                .snippet("Destination")
+                .icon(BitmapDescriptorFactory
+                .defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+    }
 
 
     public LatLng getOrigin() {

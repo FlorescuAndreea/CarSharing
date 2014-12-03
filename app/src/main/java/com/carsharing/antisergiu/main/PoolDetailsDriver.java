@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.carsharing.antisergiu.model.*;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -25,7 +29,6 @@ import java.util.HashMap;
 public class PoolDetailsDriver extends Activity {
     protected static String type;
     private String poolID;
-    public static com.carsharing.antisergiu.model.PoolDetails poolDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,15 +105,15 @@ public class PoolDetailsDriver extends Activity {
     }
 
     public void addPassengerToPool(String usn, String phone) {
-        poolDetails.addPassenger(usn, phone);
+
     }
 
     public void addDetailsToPool(Double source_lat, Double source_long, Double dest_lat, Double dest_long,
                                  Boolean weekly) {
-        poolDetails.setSource(source_lat, source_long);
-        poolDetails.setDestination(dest_lat, dest_long);
-        poolDetails.setWeekly(weekly);
 
+        LatLng source = new LatLng(source_lat, source_long);
+        LatLng destination = new LatLng(dest_lat, dest_long);
+        setMapLocations(source, destination);
     }
 
     @Override
@@ -139,6 +142,20 @@ public class PoolDetailsDriver extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+     void setMapLocations(LatLng source, LatLng dest) {
+        // Map Controller
+         GoogleMap map;
+         map = ((MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map_view_pool)).getMap();
+
+
+         map.animateCamera(CameraUpdateFactory.newLatLngZoom(source, 15));
+
+         MapController mapController = new MapController(map);
+         mapController.setOrigin(source);
+         mapController.setDestination(dest);
     }
 
     /**
