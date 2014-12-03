@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
@@ -16,6 +19,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +38,17 @@ public class PoolDetails extends Activity {
         Intent intent = getIntent();
         type = intent.getStringExtra("type");
         poolID = intent.getStringExtra("objectID");
+
+        Button submitRating = (Button)findViewById(R.id.submit_btn);
+        final Spinner rateSpinner = (Spinner) findViewById(R.id.spinner);
+        final TextView driverUsername = (TextView) findViewById(R.id.driver_name);
+
+        submitRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rateDriver(driverUsername.getText().toString(), Integer.parseInt(rateSpinner.getSelectedItem().toString()));
+            }
+        });
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -82,6 +97,24 @@ public class PoolDetails extends Activity {
                     }
                 } else {
                     // 'res' are valoarea: Pool not found!
+                }
+            }
+        });
+    }
+
+    // rate driver
+    public void rateDriver(String username, Integer rating) {
+        HashMap <String, Object> params = new HashMap <String, Object> ();
+        params.put("username", username);
+        params.put("rating", rating);
+
+        ParseCloud.callFunctionInBackground("rateDriver", params, new FunctionCallback<String>() {
+            public void done(String res, ParseException e) {
+                if (e == null) {
+                    // 'res' are valoarea: Driver rated successfully!
+                }
+                else {
+                    // 'res' are valoarea: Driver not found!
                 }
             }
         });
