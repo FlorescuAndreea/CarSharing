@@ -235,14 +235,27 @@ public class SearchPoolActivity extends Activity {
         }
 
         public void searchPool(View view) {
-            Intent matchingPoolIntent = new Intent(getActivity(), MatchingPoolsActivity.class);
-            matchingPoolIntent.putExtra("SOURCE_LAT", mapController.getOrigin().latitude);
-            matchingPoolIntent.putExtra("SOURCE_LONG", mapController.getOrigin().longitude);
-            matchingPoolIntent.putExtra("DEST_LAT", mapController.getDestination().latitude);
-            matchingPoolIntent.putExtra("DEST_LONG", mapController.getDestination().longitude);
-            matchingPoolIntent.putExtra("DATE", ((EditText)getActivity().findViewById(R.id.create_tv_date)).getText().toString());
-            matchingPoolIntent.putExtra("HOUR", convertToGMT(((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString(), 2));
-            startActivity(matchingPoolIntent);
+            LatLng source = mapController.getOrigin();
+            LatLng destination = mapController.getDestination();
+
+            if (source == null || destination == null) {
+                CustomAlertDialog alertDialog = new CustomAlertDialog(this.getActivity());
+                if (source == null) {
+                    alertDialog.createDialog("Search Pool Error", "Please select source and destination for your route!");
+                } else {
+                    alertDialog.createDialog("Search Pool Error", "Please select the destination of your route!");
+                }
+            } else {
+                Intent matchingPoolIntent = new Intent(getActivity(), MatchingPoolsActivity.class);
+                matchingPoolIntent.putExtra("SOURCE_LAT", source.latitude);
+                matchingPoolIntent.putExtra("SOURCE_LONG", source.longitude);
+                matchingPoolIntent.putExtra("DEST_LAT", destination.latitude);
+                matchingPoolIntent.putExtra("DEST_LONG", destination.longitude);
+                matchingPoolIntent.putExtra("DATE", ((EditText)getActivity().findViewById(R.id.create_tv_date)).getText().toString());
+                matchingPoolIntent.putExtra("HOUR", convertToGMT(((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString(), 2));
+                startActivity(matchingPoolIntent);
+            }
+
         }
     }
 

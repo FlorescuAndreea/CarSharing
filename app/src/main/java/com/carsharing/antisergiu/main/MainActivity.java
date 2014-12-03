@@ -20,6 +20,9 @@ public class MainActivity extends Activity {
     public static SharedPreferences prefs;
     public static boolean mIsRegistered = false;
 
+    private int settings = 0, my_profile = 1, my_pools= 2, login = 3;
+    private Menu menu;
+
     public void showLoginDialog(View view) {
         LoginDialog loginDialog = new LoginDialog();
         loginDialog.show(this.getFragmentManager(), "fragment_login");
@@ -54,11 +57,34 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (menu != null) {
+            if (loginSuccessful) {
+                menu.getItem(login).setVisible(false);
+                menu.getItem(my_pools).setVisible(true);
+                menu.getItem(my_profile).setVisible(true);
+            } else {
+                menu.getItem(login).setVisible(true);
+                menu.getItem(my_pools).setVisible(false);
+                menu.getItem(my_profile).setVisible(false);
+            }
+            this.invalidateOptionsMenu();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        this.menu = menu;
+        if (loginSuccessful) {
+            menu.getItem(login).setVisible(false);
+        } else {
+            menu.getItem(my_pools).setVisible(false);
+            menu.getItem(my_profile).setVisible(false);
+        }
         return true;
     }
 
@@ -67,6 +93,7 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

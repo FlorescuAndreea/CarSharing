@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +36,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import static android.content.DialogInterface.OnDismissListener;
@@ -71,48 +69,58 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
 
     public void savePool() {
         if (MainActivity.loginSuccessful) {
-            String date = ((EditText)findViewById(R.id.create_tv_date)).getText().toString();
-//            String hour = convertToGMT(((EditText)findViewById(R.id.create_tv_time)).getText().toString(), 2);
-            String hour = ((EditText)findViewById(R.id.create_tv_time)).getText().toString();
-            String seats = ((Spinner)findViewById(R.id.seats)).getSelectedItem().toString();
-            Switch weeklySwitch = (Switch)findViewById(R.id.weeklyPool);
 
             LatLng origin = mapController.getOrigin();
             LatLng destination = mapController.getDestination();
 
-            String driverUsername = prefs.getString("username", "");
-            long time = 0;
-
-            boolean weekly;
-            if (weeklySwitch.isChecked()) {
-                weekly = true;
+            if (origin == null || destination == null) {
+                CustomAlertDialog alertDialog = new CustomAlertDialog(this);
+                if (origin == null) {
+                    alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!");
+                } else {
+                    alertDialog.createDialog("Create Pool Error", "Please select the destination of your route!");
+                }
             } else {
-                weekly = false;
+                String date = ((EditText) findViewById(R.id.create_tv_date)).getText().toString();
+                String hour = ((EditText) findViewById(R.id.create_tv_time)).getText().toString();
+                String seats = ((Spinner) findViewById(R.id.seats)).getSelectedItem().toString();
+                Switch weeklySwitch = (Switch) findViewById(R.id.weeklyPool);
+                String driverUsername = prefs.getString("username", "");
+                long time = 0;
+
+                boolean weekly;
+                if (weeklySwitch.isChecked()) {
+                    weekly = true;
+                } else {
+                    weekly = false;
+                }
+
+                date += (" " + hour);
+                Log.v("DATE", date);
+                java.util.Date d = null;
+
+                try {
+                    SimpleDateFormat isoFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm");
+                    isoFormat.setTimeZone(TimeZone.getTimeZone("Europe/Bucharest"));
+                    d = isoFormat.parse(date);
+                    time = d.getTime();
+                } catch (java.text.ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Log.v("TIME", String.valueOf(time));
+                addPool(driverUsername, new ParseGeoPoint(origin.latitude, origin.longitude),
+                        new ParseGeoPoint(destination.latitude, destination.longitude),
+                        new Date(time), Integer.parseInt(seats), weekly);
+
+                Log.v("CARSHARING", "Date: " + date + " Hour: " + hour);
+                Log.v("CARSHARING", "Seats: " + seats + " Weekly: " + weekly);
+                Log.v("CARSHARING", "Username: " + driverUsername);
+                // after the pool is saved, redirect to mypools view
+                Intent intent = new Intent(this, MyPools.class);
+                startActivity(intent);
             }
 
-            date += (" " + hour);
-            Log.v("DATE", date);
-            java.util.Date d = null;
-
-            try {
-                SimpleDateFormat isoFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm");
-                isoFormat.setTimeZone(TimeZone.getTimeZone("Europe/Bucharest"));
-                d = isoFormat.parse(date);
-                time = d.getTime();
-            } catch (java.text.ParseException e) {
-                e.printStackTrace();
-            }
-            Log.v("TIME", String.valueOf(time));
-            addPool(driverUsername, new ParseGeoPoint(origin.latitude, origin.longitude),
-                    new ParseGeoPoint(destination.latitude, destination.longitude),
-                    new Date(time), Integer.parseInt(seats), weekly);
-
-            Log.v("CARSHARING", "Date: " + date +  " Hour: " + hour);
-            Log.v("CARSHARING", "Seats: " + seats +  " Weekly: " + weekly);
-            Log.v("CARSHARING", "Username: " + driverUsername);
-            // after the pool is saved, redirect to mypools view
-            Intent intent = new Intent(this, MyPools.class);
-            startActivity(intent);
         } else {
             Log.v("CARSHARING", "Nu e logat");
         }
