@@ -1,12 +1,12 @@
-Nume proiect: CarSharing
+##### Nume proiect: CarSharing
 
-Nume echipa: Anti-Sergiu
+##### Nume echipa: Anti-Sergiu
 
-Membrii echipei: 
-  Florescu Andreea, Grupa 341C5
-  Hoaghe Radu, Grupa 341C5
-  Necula Cristina-Suzana, Grupa 341C5
-  Serban Marius-Andrei, Grupa 341C5
+##### Membrii echipei: 
+  - Florescu Andreea, Grupa 341C5
+  - Hoaghe Radu, Grupa 341C5
+  - Necula Cristina-Suzana, Grupa 341C5
+  - Serban Marius-Andrei, Grupa 341C5
  
 Mediul de dezvoltare folosit: Android Studio 0.8.14.
 
@@ -21,7 +21,7 @@ sale, fiecare utlizator trebuie sa detina un cont propriu.
 
 Testarea aplicatiei s-a realizat pe o tableta ASUS Nexus 7 (2013) pe un sistem de operare Android 4.4.4 (Kit Kat).
 
-Descrierea aplicatiei:
+##### Descrierea aplicatiei:
 
 Aplicatia CarSharing urmareste reducerea traficului dintr-un oras prin crearea de pool-uri. 
 In fiecare pool un utilizator isi pune la dispozitie masina proprie pentru a transporta alte persoane din apropierea
