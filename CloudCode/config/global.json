@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "CarSharing": {
+            "applicationId": "Xknvjn986noGgWkwzPS3xRARe4LtrTXRjHvCorSR", 
+            "masterKey": "BfoJjbAvUx2xS4h7oHOg09ZbZNV3n0uDnwgjIh1p"
+        }, 
+        "_default": {
+            "link": "CarSharing"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.2"
+    }
+}
