@@ -14,7 +14,7 @@ public class CreatePoolDialogListener implements DialogInterface.OnClickListener
 
     Context context;
 
-    CreatePoolDialogListener(Context context) {
+    public CreatePoolDialogListener(Context context) {
         this.context = context;
     }
 

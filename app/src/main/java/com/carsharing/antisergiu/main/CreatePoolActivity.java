@@ -25,6 +25,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.carsharing.antisergiu.controller.CreatePoolDialogListener;
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 import com.parse.FunctionCallback;
@@ -118,9 +119,8 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 Log.v("CARSHARING", "Username: " + driverUsername);
                 // after the pool is saved, redirect to mypools view
                 CustomAlertDialog successAlertDialog = new CustomAlertDialog(this);
-                successAlertDialog.createDialog("Create Pool", "Pool Created Successfully!");
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                successAlertDialog.createDialog("Create Pool", "Pool Created Successfully!", new CreatePoolDialogListener(this));
+
             }
 
         } else {
