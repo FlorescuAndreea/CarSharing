@@ -48,6 +48,7 @@ public class SearchPoolActivity extends Activity {
 
     public static String convertToDate(int year, int month, int day) {
         String monthString;
+        month = month + 1;
         if(month < 10) {
             monthString = "0" + month;
         } else {
@@ -63,6 +64,25 @@ public class SearchPoolActivity extends Activity {
 
         return monthString + "/" + dayString + "/" + year;
 
+    }
+
+    public static String convertToGMT(String date, int timeZone) {
+        String[] time = date.split(":");
+        int hourOfDay = Integer.parseInt(time[0]);
+        String minuteSting = time[1];
+        String hourString = "";
+
+        hourOfDay = hourOfDay + timeZone;
+        if (hourOfDay < 0) {
+            hourOfDay = Math.abs(hourOfDay);
+            hourString = "0" + hourOfDay;
+        } else if (hourOfDay < 10) {
+            hourString = "0" + hourOfDay;
+        } else {
+            hourString = "" + hourOfDay;
+        }
+
+        return hourString + ":" + minuteSting;
     }
 
     public void showLoginDialog(View view) {
@@ -221,7 +241,7 @@ public class SearchPoolActivity extends Activity {
             matchingPoolIntent.putExtra("DEST_LAT", mapController.getDestination().latitude);
             matchingPoolIntent.putExtra("DEST_LONG", mapController.getDestination().longitude);
             matchingPoolIntent.putExtra("DATE", ((EditText)getActivity().findViewById(R.id.create_tv_date)).getText().toString());
-            matchingPoolIntent.putExtra("HOUR", ((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString());
+            matchingPoolIntent.putExtra("HOUR", convertToGMT(((EditText)getActivity().findViewById(R.id.create_tv_time)).getText().toString(), 2));
             startActivity(matchingPoolIntent);
         }
     }

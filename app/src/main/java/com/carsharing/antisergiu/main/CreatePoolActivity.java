@@ -72,6 +72,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
     public void savePool() {
         if (MainActivity.loginSuccessful) {
             String date = ((EditText)findViewById(R.id.create_tv_date)).getText().toString();
+//            String hour = convertToGMT(((EditText)findViewById(R.id.create_tv_time)).getText().toString(), 2);
             String hour = ((EditText)findViewById(R.id.create_tv_time)).getText().toString();
             String seats = ((Spinner)findViewById(R.id.seats)).getSelectedItem().toString();
             Switch weeklySwitch = (Switch)findViewById(R.id.weeklyPool);
@@ -139,13 +140,33 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
         });
     }
 
+    public String convertToGMT(String date, int timeZone) {
+        String[] time = date.split(":");
+        int hourOfDay = Integer.parseInt(time[0]);
+        String minuteSting = time[1];
+        String hourString = "";
+
+        hourOfDay = hourOfDay + timeZone;
+        if (hourOfDay < 0) {
+            hourOfDay = Math.abs(hourOfDay);
+            hourString = "0" + hourOfDay;
+        } else if (hourOfDay < 10) {
+            hourString = "0" + hourOfDay;
+        } else {
+            hourString = "" + hourOfDay;
+        }
+
+        return hourString + ":" + minuteSting;
+    }
+
     public static String convertToHour(int hourOfDay, int minute) {
 
         String hourString;
-        if (hourOfDay < 10)
+         if (hourOfDay < 10) {
             hourString = "0" + hourOfDay;
-        else
-            hourString = "" +hourOfDay;
+        } else {
+             hourString = "" + hourOfDay;
+        }
 
         String minuteSting;
         if (minute < 10)
@@ -158,6 +179,7 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
 
     public static String convertToDate(int year, int month, int day) {
         String monthString;
+        month = month + 1;
         if(month < 10) {
             monthString = "0" + month;
         } else {
