@@ -77,12 +77,16 @@ public class RoutesAdapter extends BaseAdapter {
 
 //            ================= JOIN Button Layout =================
             RelativeLayout buttonLayout = new RelativeLayout(parent.getContext());
+            RelativeLayout.LayoutParams buttonLayoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            buttonLayout.setLayoutParams(buttonLayoutParams);
 
             Button joinBtn = new Button(parent.getContext());
             joinBtn.setText("JOIN");
-            LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            RelativeLayout.LayoutParams buttonParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             buttonParams.setMargins(0,0,20,0);
+            buttonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             joinBtn.setPadding(30,0,30,0);
 
             joinBtn.setLayoutParams(buttonParams);
