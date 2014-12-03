@@ -76,9 +76,9 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
             if (origin == null || destination == null) {
                 CustomAlertDialog alertDialog = new CustomAlertDialog(this);
                 if (origin == null) {
-                    alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!");
+                    alertDialog.createDialog("Create Pool Error", "Please select source and destination for your route!", null);
                 } else {
-                    alertDialog.createDialog("Create Pool Error", "Please select the destination of your route!");
+                    alertDialog.createDialog("Create Pool Error", "Please select the destination of your route!", null);
                 }
             } else {
                 String date = ((EditText) findViewById(R.id.create_tv_date)).getText().toString();
