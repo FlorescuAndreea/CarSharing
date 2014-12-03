@@ -10,10 +10,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class PoolDetails extends Activity {
     protected static String type;
     private String poolID;
+
+    public static com.carsharing.antisergiu.model.PoolDetails poolDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +42,58 @@ public class PoolDetails extends Activity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        viewPool(poolID, 1);
+    }
+
+    // user's view pool (type: 0 - driver, 1 - passenger)
+    public void viewPool(String id, final Integer userType) {
+        HashMap<String, Object> params = new HashMap <String, Object> ();
+        params.put("id", id);
+
+        ParseCloud.callFunctionInBackground("viewPool", params, new FunctionCallback<ArrayList<ParseObject>>() {
+            public void done(ArrayList<ParseObject> res, ParseException e) {
+                if (e == null) {
+                    final String source_lat = String.valueOf(res.get(0).getParseGeoPoint("source").getLatitude());
+                    final String source_long = String.valueOf(res.get(0).getParseGeoPoint("source").getLongitude());
+                    final String dest_lat = String.valueOf(res.get(0).getParseGeoPoint("destination").getLatitude());
+                    final String dest_long = String.valueOf(res.get(0).getParseGeoPoint("destination").getLongitude());
+
+                    HashMap<String, Object> tmp = new HashMap<String, Object>();
+
+                    if (userType == 1) {
+                        final String usn = res.get(0).get("driver").toString();
+
+                        tmp.put("username", usn);
+
+                        ParseCloud.callFunctionInBackground("getPhone", tmp, new FunctionCallback<String>() {
+                            public void done(String phone, ParseException e) {
+                                if (e == null) {
+                                    addDetailsToPool(Double.parseDouble(source_lat), Double.parseDouble(source_long),
+                                            Double.parseDouble(dest_lat), Double.parseDouble(dest_long), usn, phone);
+                                } else {
+                                    // 'res' are valoarea: User not found!
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    // 'res' are valoarea: Pool not found!
+                }
+            }
+        });
+    }
+
+    public void addDetailsToPool(Double source_lat, Double source_long, Double dest_lat, Double dest_long,
+                                 String driver, String telephone) {
+        poolDetails.setSource(source_lat, source_long);
+        poolDetails.setDestination(dest_lat, dest_long);
+        poolDetails.setDriverUsername(driver);
+        poolDetails.setDriverTelephone(telephone);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
