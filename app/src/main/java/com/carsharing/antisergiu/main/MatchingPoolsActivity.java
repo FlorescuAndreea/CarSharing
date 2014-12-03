@@ -98,8 +98,6 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         prefs = getSharedPreferences(sharedPrefsName, MODE_MULTI_PROCESS);
         mIsRegistered = prefs.getBoolean("registered", false);
 
-
-
         Log.d("MAPS", "creando MatchingPoolsActivity");
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
