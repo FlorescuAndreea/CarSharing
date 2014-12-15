@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +22,12 @@ public class MainActivity extends Activity {
     public static SharedPreferences prefs;
     public static boolean mIsRegistered = false;
 
-    private int settings = 0, my_profile = 1, my_pools= 2, login = 3;
+    private int my_profile = 0, my_pools= 1, login = 2;
     private Menu menu;
+
+    private MenuItem loginMenuItem;
+    private MenuItem myPoolsMenuItem;
+    private MenuItem myProfileMenuItem;
 
     public void showLoginDialog(View view) {
         LoginDialog loginDialog = new LoginDialog();
@@ -78,12 +84,20 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         this.menu = menu;
+        this.loginMenuItem = menu.getItem(login);
+        this.myPoolsMenuItem = menu.getItem(my_pools);
+        this.myProfileMenuItem = menu.getItem(my_profile);
+
         if (loginSuccessful) {
-            menu.getItem(login).setVisible(false);
+//            menu.getItem(login).setVisible(false);
+            loginMenuItem.setVisible(false);
         } else {
-            menu.getItem(my_pools).setVisible(false);
-            menu.getItem(my_profile).setVisible(false);
+//            menu.getItem(my_pools).setVisible(false);
+//            menu.getItem(my_profile).setVisible(false);
+            myProfileMenuItem.setVisible(false);
+            myPoolsMenuItem.setVisible(false);
         }
         return true;
     }
@@ -95,10 +109,6 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
 
         if (loginSuccessful) {
             if (id == R.id.action_my_profile) {
@@ -119,6 +129,22 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+
+        if (loginSuccessful) {
+            myPoolsMenuItem.setVisible(true);
+            myProfileMenuItem.setVisible(true);
+            loginMenuItem.setVisible(false);
+        } else {
+            myPoolsMenuItem.setVisible(false);
+            myProfileMenuItem.setVisible(false);
+            loginMenuItem.setVisible(true);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     /**

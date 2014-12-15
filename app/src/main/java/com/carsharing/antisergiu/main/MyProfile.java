@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.carsharing.antisergiu.controller.CreatePoolDialogListener;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -74,6 +75,11 @@ public class MyProfile extends Activity {
         String profileCarType = ((EditText)findViewById(R.id.profileCarType)).getText().toString();
 
         updateProfile(profileUsername, profileName, profileTelephone, smoking, music, profileCarType);
+
+        CustomAlertDialog successAlertDialog = new CustomAlertDialog(this);
+        successAlertDialog.createDialog("My Profile", "Profile Information Updated Successfully",
+                new CreatePoolDialogListener(this, MainActivity.class));
+
     }
 
     // get user's info
@@ -184,29 +190,27 @@ public class MyProfile extends Activity {
         profileRating.setText(rating);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_my_profile) {
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//
+//        if (id == R.id.action_my_profile) {
+//            Intent intent = new Intent(this, MyProfile.class);
+//            startActivity(intent);
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

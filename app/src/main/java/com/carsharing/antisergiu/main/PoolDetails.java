@@ -2,8 +2,10 @@ package com.carsharing.antisergiu.main;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.carsharing.antisergiu.controller.CreatePoolDialogListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -130,40 +134,40 @@ public class PoolDetails extends Activity {
         mapController.setDestination(dest);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if (id == R.id.action_my_profile) {
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//
+//        if (id == R.id.action_my_profile) {
+//            Intent intent = new Intent(this, MyProfile.class);
+//            startActivity(intent);
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
 
+        Context context;
+
         public PlaceholderFragment() {
+
         }
 
         @Override
@@ -181,6 +185,7 @@ public class PoolDetails extends Activity {
                     rateDriver(driverUsername.getText().toString(), Integer.parseInt(rateSpinner.getSelectedItem().toString()));
                 }
             });
+            this.context = container.getContext();
             return rootView;
         }
 
@@ -193,12 +198,14 @@ public class PoolDetails extends Activity {
                 public void done(String res, ParseException e) {
                     if (e == null) {
                         // 'res' are valoarea: Driver rated successfully!
-                    }
-                    else {
+                    } else {
                         // 'res' are valoarea: Driver not found!
                     }
                 }
             });
+            CustomAlertDialog successAlertDialog = new CustomAlertDialog(this.context);
+            successAlertDialog.createDialog("Rate Driver", "Rate Successfully Updated",
+                    new CreatePoolDialogListener(this.context, MyPools.class));
         }
     }
 }

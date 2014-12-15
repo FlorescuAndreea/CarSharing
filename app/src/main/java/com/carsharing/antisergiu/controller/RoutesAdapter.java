@@ -98,8 +98,8 @@ public class RoutesAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Activity host = (Activity) view.getContext();
-//                    LoginDialogListener loginDialogListener = new LoginDialogListener(host, view);
-
+                    LoginDialog loginDialog = new LoginDialog();
+                    loginDialog.show(host.getFragmentManager(), "fragment_login");
 
                 }
             });

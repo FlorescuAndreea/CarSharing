@@ -68,6 +68,8 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
         // TODO add user to pool in db
 
         joinPool(matchingItem.getObjectID(), prefs.getString("username", ""));
+        Intent myPoolsIntent = new Intent(this, MyPools.class);
+        startActivity(myPoolsIntent);
     }
 
     // join pool
@@ -138,31 +140,6 @@ public class MatchingPoolsActivity extends Activity implements DialogInterface.O
                 new ParseGeoPoint(destination.latitude, destination.longitude), new Date(time), walking_distance);
 
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.action_my_profile) {
-            Intent intent = new Intent(this, MyProfile.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
