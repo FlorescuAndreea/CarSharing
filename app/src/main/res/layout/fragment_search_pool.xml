@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pick_time"
                     android:textAlignment="center"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@android:color/holo_blue_dark"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="15dp"/>
@@ -67,11 +67,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Walking Distance"
-                    android:textSize="25dp"
+                    android:text="Walk Dist"
+                    android:textSize="20dp"
                     android:textColor="@android:color/holo_green_dark"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="20dp"
                     />
 
             </LinearLayout>
