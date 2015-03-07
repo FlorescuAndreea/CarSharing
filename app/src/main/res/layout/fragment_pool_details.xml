@@ -10,9 +10,9 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map_view_pool"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="250dp"
         android:name="com.google.android.gms.maps.MapFragment"
-        android:height="350dp"
+        android:height="250dp"
         />
 
     <TextView
@@ -21,8 +21,8 @@
         android:text="DRIVER:"
         android:id="@+id/driver_label"
         android:layout_below="@+id/map_view_pool"
-        android:layout_margin="30dp"
-        android:textSize="25dp"
+        android:layout_margin="10dp"
+        android:textSize="15dp"
         android:textColor="@android:color/holo_blue_light"/>
 
     <TextView
@@ -30,8 +30,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/driver_name"
         android:text="Iohannis"
-        android:textSize="25dp"
-        android:layout_marginLeft="60dp"
+        android:textSize="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_below="@id/driver_label"/>
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="0725310223"
         android:id="@+id/telephone_number"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:layout_marginLeft="20dp"
         android:autoLink="all"
         android:layout_toRightOf="@id/driver_name"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="RATE:"
         android:id="@+id/rate_label"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:layout_below="@id/driver_name"
         android:layout_margin="30dp"
         android:textColor="@android:color/holo_blue_light"

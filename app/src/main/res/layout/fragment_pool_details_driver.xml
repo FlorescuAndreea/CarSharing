@@ -16,8 +16,8 @@
 
 
             <TextView
-                android:layout_margin="30dp"
-                android:textSize="25dp"
+                android:layout_margin="20dp"
+                android:textSize="20dp"
                 android:layout_below="@id/map_view_pool"
                 android:textColor="@android:color/holo_blue_light"
                 android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_label"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/passenger_list"
                 android:orientation="vertical">
 

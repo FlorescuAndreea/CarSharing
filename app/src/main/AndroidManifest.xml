@@ -72,7 +72,7 @@
         <!-- android:label="@string/title_activity_matching_routes" > -->
         <!-- </activity> -->
         <activity
-            android:name="com.symbiDrive.timteam.main.MatchingPoolsActivity"
+            android:name="com.symbidrive.timteam.main.MatchingPoolsActivity"
             android:label="@string/title_activity_matching_pools" >
         </activity>
         <activity
