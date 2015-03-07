@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carsharing.antisergiu.main" >
+    package="com.carsharing.timteam.main" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,10 @@
         android:required="true" />
 
     <permission
-        android:name="com.carsharing.antisergiu.main.permission.MAPS_RECEIVE"
+        android:name="com.carsharing.timteam.main.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.carsharing.antisergiu.main.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.carsharing.timteam.main.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -31,19 +31,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <receiver
-            android:name="com.carsharing.antisergiu.main.GcmBroadcastReceiver"
+            android:name="com.carsharing.timteam.main.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.carsharing.antisergiu.main" />
+                <category android:name="com.carsharing.timteam.main" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.carsharing.antisergiu.main.GcmIntentService" />
+        <service android:name="com.carsharing.timteam.main.GcmIntentService" />
 
         <activity
-            android:name="com.carsharing.antisergiu.main.Launcher"
+            android:name="com.carsharing.timteam.main.Launcher"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,11 +52,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.MainActivity"
+            android:name="com.carsharing.timteam.main.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.CreatePoolActivity"
+            android:name="com.carsharing.timteam.main.CreatePoolActivity"
             android:label="@string/title_activity_create_pool" >
         </activity>
 
@@ -72,35 +72,35 @@
         <!-- android:label="@string/title_activity_matching_routes" > -->
         <!-- </activity> -->
         <activity
-            android:name="com.carsharing.antisergiu.main.MatchingPoolsActivity"
+            android:name="com.carsharing.timteam.main.MatchingPoolsActivity"
             android:label="@string/title_activity_matching_pools" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.SearchPoolActivity"
+            android:name="com.carsharing.timteam.main.SearchPoolActivity"
             android:label="@string/title_activity_search_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.ShowRouteActivity"
+            android:name="com.carsharing.timteam.main.ShowRouteActivity"
             android:label="@string/title_join_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.MyProfile"
+            android:name="com.carsharing.timteam.main.MyProfile"
             android:label="@string/title_activity_my_profile" >
         </activity>
         <activity
-            android:name=".PoolDetails"
+            android:name="com.carsharing.timteam.main.PoolDetails"
             android:label="@string/title_activity_my_pool" >
         </activity>
         <activity
-            android:name=".PoolDetailsDriver"
+            android:name="com.carsharing.timteam.main.PoolDetailsDriver"
             android:label="@string/title_activity_my_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.ViewPool"
+            android:name="com.carsharing.timteam.main.ViewPool"
             android:label="@string/title_activity_view_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.antisergiu.main.MyPools"
+            android:name="com.carsharing.timteam.main.MyPools"
             android:label="@string/title_activity_my_pools" >
         </activity>
     </application>
