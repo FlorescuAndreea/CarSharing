@@ -82,16 +82,10 @@ public class CreatePoolActivity extends Activity implements OnDismissListener{
                 String date = ((EditText) findViewById(R.id.create_tv_date)).getText().toString();
                 String hour = ((EditText) findViewById(R.id.create_tv_time)).getText().toString();
                 String seats = ((Spinner) findViewById(R.id.seats)).getSelectedItem().toString();
-                Switch weeklySwitch = (Switch) findViewById(R.id.weeklyPool);
                 String driverUsername = prefs.getString("username", "");
                 long time = 0;
 
-                boolean weekly;
-                if (weeklySwitch.isChecked()) {
-                    weekly = true;
-                } else {
-                    weekly = false;
-                }
+                boolean weekly = false;
 
                 date += (" " + hour);
                 Log.v("DATE", date);
