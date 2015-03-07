@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.carsharing.timteam.main.MyProfile"
+    tools:context="com.symbidrive.timteam.main.MyProfile"
     android:background="@drawable/road_background"
     android:id="@+id/myProfile">
 

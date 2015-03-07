@@ -3,7 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.carsharing.timteam.main.MatchingPoolsActivity"
+    tools:context="com.symbidrive.timteam.main.MatchingPoolsActivity"
     tools:ignore="MergeRootFrame"
     android:background="@drawable/road_background">
 

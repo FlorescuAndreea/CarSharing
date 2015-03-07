@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/road_background"
-    tools:context="com.carsharing.timteam.main.MainActivity"
+    tools:context="com.symbidrive.timteam.main.MainActivity"
     tools:ignore="MergeRootFrame">
     </FrameLayout>
 

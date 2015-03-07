@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.carsharing.timteam.main" >
+    package="com.symbidrive.timteam.main" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,10 +17,10 @@
         android:required="true" />
 
     <permission
-        android:name="com.carsharing.timteam.main.permission.MAPS_RECEIVE"
+        android:name="com.symbidrive.timteam.main.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.carsharing.timteam.main.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.symbidrive.timteam.main.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -31,19 +31,19 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <receiver
-            android:name="com.carsharing.timteam.main.GcmBroadcastReceiver"
+            android:name="com.symbidrive.timteam.main.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.carsharing.timteam.main" />
+                <category android:name="com.symbidrive.timteam.main" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.carsharing.timteam.main.GcmIntentService" />
+        <service android:name="com.symbidrive.timteam.main.GcmIntentService" />
 
         <activity
-            android:name="com.carsharing.timteam.main.Launcher"
+            android:name="com.symbidrive.timteam.main.Launcher"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,11 +52,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.MainActivity"
+            android:name="com.symbidrive.timteam.main.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.CreatePoolActivity"
+            android:name="com.symbidrive.timteam.main.CreatePoolActivity"
             android:label="@string/title_activity_create_pool" >
         </activity>
 
@@ -72,35 +72,35 @@
         <!-- android:label="@string/title_activity_matching_routes" > -->
         <!-- </activity> -->
         <activity
-            android:name="com.carsharing.timteam.main.MatchingPoolsActivity"
+            android:name="com.symbiDrive.timteam.main.MatchingPoolsActivity"
             android:label="@string/title_activity_matching_pools" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.SearchPoolActivity"
+            android:name="com.symbidrive.timteam.main.SearchPoolActivity"
             android:label="@string/title_activity_search_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.ShowRouteActivity"
+            android:name="com.symbidrive.timteam.main.ShowRouteActivity"
             android:label="@string/title_join_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.MyProfile"
+            android:name="com.symbidrive.timteam.main.MyProfile"
             android:label="@string/title_activity_my_profile" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.PoolDetails"
+            android:name="com.symbidrive.timteam.main.PoolDetails"
             android:label="@string/title_activity_my_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.PoolDetailsDriver"
+            android:name="com.symbidrive.timteam.main.PoolDetailsDriver"
             android:label="@string/title_activity_my_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.ViewPool"
+            android:name="com.symbidrive.timteam.main.ViewPool"
             android:label="@string/title_activity_view_pool" >
         </activity>
         <activity
-            android:name="com.carsharing.timteam.main.MyPools"
+            android:name="com.symbidrive.timteam.main.MyPools"
             android:label="@string/title_activity_my_pools" >
         </activity>
     </application>

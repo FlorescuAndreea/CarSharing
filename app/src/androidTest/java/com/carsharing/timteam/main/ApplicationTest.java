@@ -1,4 +1,4 @@
-package com.carsharing.timteam.main;
+package com.symbidrive.timteam.main;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
