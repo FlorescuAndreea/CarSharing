@@ -26,10 +26,10 @@
             android:layout_marginBottom="20dp"
             android:textColor="#ffffff"
             android:background="#8CC739"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:onClick="createPool"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:drawableLeft="@drawable/car_driver"
             />
 
@@ -40,11 +40,11 @@
             android:text="@string/main_passenger_title"
             android:textColor="#ffffff"
             android:background="#21BEDE"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:onClick="searchRoutes"
             android:drawableLeft="@drawable/passenger_256"
-            android:textSize="30dp"
+            android:textSize="25dp"
             />
 
         </LinearLayout>
