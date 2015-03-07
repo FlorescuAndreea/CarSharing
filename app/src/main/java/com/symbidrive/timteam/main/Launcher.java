@@ -40,16 +40,16 @@ public class Launcher extends Activity {
 
         AnimatorSet animatorSet = new AnimatorSet();
         ImageView image = (ImageView) findViewById(R.id.launcher_image_car);
-        PropertyValuesHolder xScale = PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 12);
-        PropertyValuesHolder yScale = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 12);
-        PropertyValuesHolder yMove = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 10, 280);
+        PropertyValuesHolder xScale = PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 5);
+        PropertyValuesHolder yScale = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 5);
+        PropertyValuesHolder yMove = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 10, 150);
         ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(image, xScale, yScale, yMove);
         animator.setInterpolator(new AccelerateInterpolator());
         animator.setDuration(2800);
 
-        PropertyValuesHolder xxScale = PropertyValuesHolder.ofFloat(View.SCALE_X, 12, 15);
-        PropertyValuesHolder yyScale = PropertyValuesHolder.ofFloat(View.SCALE_Y, 12, 15);
-        PropertyValuesHolder yyMove = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 280, 300);
+        PropertyValuesHolder xxScale = PropertyValuesHolder.ofFloat(View.SCALE_X, 5, 10);
+        PropertyValuesHolder yyScale = PropertyValuesHolder.ofFloat(View.SCALE_Y, 5, 10);
+        PropertyValuesHolder yyMove = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 150, 200);
         ObjectAnimator overshootAnimator = ObjectAnimator.ofPropertyValuesHolder(image, xxScale, yyScale, yyMove);
         overshootAnimator.setInterpolator(new OvershootInterpolator());
         overshootAnimator.setDuration(500);
